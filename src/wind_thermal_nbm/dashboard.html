@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kelmarsh thermal health</title>
+<meta name="description" content="Normal behaviour models of drivetrain temperatures on the open Kelmarsh wind farm SCADA data: monthly thermal health map, daily residuals and alarms per turbine.">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10); --critical: #d03b3b;
+  --div-neg: #2a78d6; --div-mid: #f0efec; --div-pos: #e34948;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10); --critical: #d03b3b;
+    --div-neg: #3987e5; --div-mid: #383835; --div-pos: #e66767;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10); --critical: #d03b3b;
+  --div-neg: #3987e5; --div-mid: #383835; --div-pos: #e66767;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink);
+       font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1180px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 26px; margin: 0 0 6px; font-weight: 650; }
+h2 { font-size: 17px; margin: 0 0 4px; font-weight: 600; }
+p { margin: 0 0 10px; color: var(--ink2); max-width: 900px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+        margin-top: 16px; }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin-top: 16px; }
+label { font-size: 14px; color: var(--ink2); display: flex; gap: 8px; align-items: center; }
+select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--border);
+         border-radius: 6px; padding: 4px 8px; }
+.plot { width: 100%; }
+table { border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; width: 100%; }
+th, td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--grid); }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--ink2); font-weight: 600; }
+.note { font-size: 13px; color: var(--muted); }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--ink2); margin: 6px 0 0; }
+.key { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.key.line { width: 2px; height: 12px; border-radius: 0; }
+a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Thermal health of the Kelmarsh turbines</h1>
+  <p>Normal behaviour models of nine drivetrain and electrical temperatures on six Senvion MM92 turbines
+     (open Kelmarsh SCADA data, 2019-2021). Each model is trained two years before and calibrated one year before
+     the year shown. Values are daily residuals (measured minus expected) in units of the calibration year's
+     spread: red runs hotter than normal, blue cooler.</p>
+
+  <div class="controls">
+    <label>Model <select id="method"></select></label>
+    <label>Turbine <select id="turbine"></select></label>
+  </div>
+
+  <section class="card">
+    <h2>Monthly thermal health</h2>
+    <p class="note">Mean daily residual per month (z). Click a cell to open that turbine below.</p>
+    <div id="heat" class="plot" style="height:760px"></div>
+  </section>
+
+  <section class="card">
+    <h2 id="ts-title">Daily residuals and alarms</h2>
+    <div class="legend">
+      <span><span class="key line" id="key-day" style="opacity:.4"></span>daily residual (z)</span>
+      <span><span class="key line" id="key-line"></span>7-day mean</span>
+      <span><span class="key" id="key-alarm"></span>CUSUM alarm, hot side</span>
+      <span><span class="key line" style="background:var(--critical)"></span>logged warning on this component</span>
+    </div>
+    <div id="ts" class="plot" style="height:1150px"></div>
+  </section>
+
+  <section class="card">
+    <h2>Fitted RC parameters (training year 2019)</h2>
+    <p class="note">tau: thermal time constant. Rise: temperature rise above the cooling side at rated power and
+       speed, i.e. thermal resistance x losses - it grows when cooling degrades.</p>
+    <div style="overflow-x:auto"><table id="params"></table></div>
+  </section>
+
+  <p class="note" style="margin-top:16px">Data: Kelmarsh wind farm data, C. Plumley and R. Takeuchi (Cubico Sustainable
+     Investments), <a href="https://doi.org/10.5281/zenodo.16807551">doi:10.5281/zenodo.16807551</a>, CC BY 4.0.
+     Code: <a href="https://github.com/kwwaleszczynski-del/wind-thermal-nbm">wind-thermal-nbm</a>.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"
+        integrity="sha384-cCVCZkAjYNxaYKbM8lsArLznDF/SvMFr1jcZrvOpSTCa0W40ZAdLzHCEulnUa5i7" crossorigin="anonymous"></script>
+<script>
+const D = /*__DATA__*/null;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const methodSel = document.getElementById("method"), turbSel = document.getElementById("turbine");
+D.methods.forEach(m => methodSel.add(new Option(m.label, m.key)));
+for (let t = 1; t <= 6; t++) turbSel.add(new Option("Turbine " + t, t));
+methodSel.value = "rc_fleet";
+const compLabel = Object.fromEntries(D.components.map(c => [c.key, c.label]));
+const nComp = D.components.length;
+const start = new Date(D.start + "T00:00:00Z");
+const nDays = D.daily[D.methods[0].key][0].length;
+const days = Array.from({length: nDays}, (_, i) => new Date(start.getTime() + i * 864e5).toISOString().slice(0, 10));
+
+function baseLayout() {
+  return {paper_bgcolor: css("--surface"), plot_bgcolor: css("--surface"),
+          font: {family: 'system-ui, -apple-system, "Segoe UI", sans-serif', color: css("--ink2"), size: 12},
+          margin: {l: 150, r: 20, t: 10, b: 40}};
+}
+
+function drawHeat() {
+  const m = methodSel.value;
+  const rows = D.channels.map(([t, c]) => "T" + t + "  " + compLabel[c]);
+  const z = D.heat.values[m];
+  const trace = {type: "heatmap", z: z, x: D.heat.months, y: rows, zmin: -3, zmax: 3, zmid: 0,
+    colorscale: [[0, css("--div-neg")], [0.5, css("--div-mid")], [1, css("--div-pos")]],
+    xgap: 1, ygap: 1, colorbar: {title: {text: "z", side: "right"}, thickness: 10, outlinewidth: 0,
+    tickfont: {color: css("--ink2")}},
+    hovertemplate: "%{y}<br>%{x}<br>mean z %{z:.2f}<extra></extra>"};
+  const layout = Object.assign(baseLayout(), {
+    yaxis: {autorange: "reversed", tickfont: {size: 11}, showgrid: false, color: css("--ink2")},
+    xaxis: {showgrid: false, color: css("--ink2"), tickangle: 0, dtick: "M6", tickformat: "%b %Y"},
+    shapes: [1, 2, 3, 4, 5].map(k => ({type: "line", xref: "paper", x0: 0, x1: 1, yref: "y",
+      y0: k * nComp - 0.5, y1: k * nComp - 0.5, line: {color: css("--surface"), width: 4}}))});
+  Plotly.react("heat", [trace], layout, {displayModeBar: false, responsive: true});
+}
+
+function drawSeries() {
+  const m = methodSel.value, t = +turbSel.value;
+  const meta = D.methods.find(x => x.key === m);
+  document.getElementById("ts-title").textContent = "Turbine " + t + ": daily residuals and alarms (" + meta.label + ")";
+  document.getElementById("key-line").style.background = meta.color;
+  document.getElementById("key-day").style.background = meta.color;
+  document.getElementById("key-alarm").style.background = meta.color;
+  const traces = [], layout = baseLayout();
+  layout.margin = {l: 60, r: 20, t: 10, b: 40};
+  layout.showlegend = false;
+  layout.shapes = [];
+  layout.annotations = [];
+  const gap = 0.025, h = (1 - gap * (nComp - 1)) / nComp;
+  D.components.forEach((c, k) => {
+    const ch = D.channels.findIndex(([tt, cc]) => tt === t && cc === c.key);
+    const ax = k === 0 ? "" : String(k + 1);
+    const y = D.daily[m][ch];
+    traces.push({type: "scatter", mode: "lines", x: days, y: y, xaxis: "x", yaxis: "y" + ax,
+      line: {color: meta.color, width: 1}, opacity: 0.4, connectgaps: false,
+      hovertemplate: c.label + "<br>%{x}<br>z %{y:.1f}<extra></extra>"});
+    traces.push({type: "scatter", mode: "lines", x: days, y: trailingMean(y, 7), xaxis: "x", yaxis: "y" + ax,
+      line: {color: meta.color, width: 2}, connectgaps: false,
+      hovertemplate: c.label + "<br>%{x}<br>7-day mean z %{y:.1f}<extra></extra>"});
+    const al = D.alarms[m].filter(a => a[0] === ch && a[2] > 0);
+    traces.push({type: "scatter", mode: "markers", x: al.map(a => days[a[1]]), y: al.map(a => y[a[1]]),
+      xaxis: "x", yaxis: "y" + ax, marker: {size: 9, color: meta.color, line: {color: css("--surface"), width: 2}},
+      hovertemplate: "CUSUM alarm (hot)<br>%{x}<extra></extra>"});
+    const top = 1 - k * (h + gap);
+    layout["yaxis" + ax] = {domain: [top - h, top], range: [-6, 6], zeroline: true, zerolinecolor: css("--axis"),
+      gridcolor: css("--grid"), color: css("--muted"), tickvals: [-4, 0, 4], fixedrange: true};
+    layout.annotations.push({text: c.label, xref: "paper", yref: "paper", x: 0, y: top, xanchor: "left",
+      yanchor: "top", showarrow: false, font: {size: 12, color: css("--ink")}});
+    D.events.filter(e => e.turbine === t && !e.campaign && eventTouches(e, c.key)).forEach(e => {
+      layout.shapes.push({type: "line", xref: "x", yref: "y" + ax + " domain", x0: e.day, x1: e.day, y0: 0, y1: 1,
+        line: {color: css("--critical"), width: 1.5}});
+      traces.push({type: "scatter", mode: "markers", x: [e.day], y: [5.2], xaxis: "x", yaxis: "y" + ax,
+        marker: {size: 12, color: "rgba(0,0,0,0)"}, hovertemplate: e.group + "<br>" + e.messages + "<br>%{x}<extra></extra>"});
+    });
+  });
+  layout.xaxis = {anchor: "y" + nComp, gridcolor: css("--grid"), color: css("--ink2"), type: "date"};
+  Plotly.react("ts", traces, layout, {displayModeBar: false, responsive: true});
+  drawParams(t);
+}
+
+function trailingMean(y, n) {
+  return y.map((_, i) => {
+    let s = 0, k = 0;
+    for (let j = Math.max(0, i - n + 1); j <= i; j++) if (y[j] !== null) { s += y[j]; k++; }
+    return k >= Math.ceil(n / 2) ? s / k : null;
+  });
+}
+
+const groupComponents = {
+  "gear bearing high temperature": ["front_bearing", "rear_bearing"],
+  "gear oil system": ["gear_oil", "gear_inlet", "front_bearing", "rear_bearing"],
+  "transformer cooling": ["transformer"],
+  "generator cooling": ["stator", "gen_bearing_front", "gen_bearing_rear"]};
+function eventTouches(e, comp) { return (groupComponents[e.group] || []).includes(comp); }
+
+function drawParams(t) {
+  const rows = D.components.map(c => {
+    const p = D.rc_params[t + "|" + c.key] || {};
+    return "<tr><td>" + c.label + "</td><td>" + (p.tau ?? "") + "</td><td>" + (p.rise ?? "") + "</td><td>" +
+      (p.rmse ?? "") + "</td></tr>";
+  }).join("");
+  document.getElementById("params").innerHTML =
+    "<thead><tr><th>Turbine " + t + "</th><th>tau [h]</th><th>Rise at rated [K]</th><th>Fit RMSE [K]</th></tr></thead>" +
+    "<tbody>" + rows + "</tbody>";
+}
+
+methodSel.addEventListener("change", () => { drawHeat(); drawSeries(); });
+turbSel.addEventListener("change", drawSeries);
+drawHeat(); drawSeries();
+document.getElementById("heat").on("plotly_click", ev => {
+  const row = ev.points[0].pointIndex[0];
+  turbSel.value = D.channels[row][0];
+  drawSeries();
+  document.getElementById("ts").scrollIntoView({behavior: "smooth"});
+});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { drawHeat(); drawSeries(); });
+</script>
+</body>
+</html>

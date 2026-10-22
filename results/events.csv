@@ -1,0 +1,531 @@
+group,turbine,start,end,n_events,messages,campaign,method,anticipated,lead_days,first_alarm_component,chance,baseline
+gear oil system,1,2019-02-24 16:46:28+00:00,2019-05-30 07:34:04+00:00,3,Oil filter gear choked,False,rc,False,,,0.16970802919708028,fixed
+gear oil system,1,2019-02-24 16:46:28+00:00,2019-05-30 07:34:04+00:00,3,Oil filter gear choked,False,gbm,False,,,0.24543795620437955,fixed
+gear oil system,1,2019-02-24 16:46:28+00:00,2019-05-30 07:34:04+00:00,3,Oil filter gear choked,False,fleet,False,,,0.0,fixed
+gear oil system,1,2019-02-24 16:46:28+00:00,2019-05-30 07:34:04+00:00,3,Oil filter gear choked,False,rc_fleet,False,,,0.2208029197080292,fixed
+gear oil system,1,2019-02-24 16:46:28+00:00,2019-05-30 07:34:04+00:00,3,Oil filter gear choked,False,gbm_fleet,False,,,0.270985401459854,fixed
+generator cooling,2,2019-03-25 10:31:51+00:00,2019-03-25 11:30:41+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.05474452554744526,fixed
+generator cooling,2,2019-03-25 10:31:51+00:00,2019-03-25 11:30:41+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.2281021897810219,fixed
+generator cooling,2,2019-03-25 10:31:51+00:00,2019-03-25 11:30:41+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,True,14.0,gen_bearing_rear,0.3056569343065693,fixed
+generator cooling,2,2019-03-25 10:31:51+00:00,2019-03-25 11:30:41+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.10948905109489052,fixed
+generator cooling,2,2019-03-25 10:31:51+00:00,2019-03-25 11:30:41+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.16423357664233576,fixed
+generator cooling,3,2019-03-25 14:43:47+00:00,2019-03-25 14:59:57+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.05474452554744526,fixed
+generator cooling,3,2019-03-25 14:43:47+00:00,2019-03-25 14:59:57+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.10948905109489052,fixed
+generator cooling,3,2019-03-25 14:43:47+00:00,2019-03-25 14:59:57+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.0,fixed
+generator cooling,3,2019-03-25 14:43:47+00:00,2019-03-25 14:59:57+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.1332116788321168,fixed
+generator cooling,3,2019-03-25 14:43:47+00:00,2019-03-25 14:59:57+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.1177007299270073,fixed
+generator cooling,1,2019-05-30 11:40:01+00:00,2019-05-30 13:11:16+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.13777372262773724,fixed
+generator cooling,1,2019-05-30 11:40:01+00:00,2019-05-30 13:11:16+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.23996350364963503,fixed
+generator cooling,1,2019-05-30 11:40:01+00:00,2019-05-30 13:11:16+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,True,52.0,gen_bearing_rear,0.33667883211678834,fixed
+generator cooling,1,2019-05-30 11:40:01+00:00,2019-05-30 13:11:16+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.2271897810218978,fixed
+generator cooling,1,2019-05-30 11:40:01+00:00,2019-05-30 13:11:16+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.3777372262773723,fixed
+generator cooling,2,2019-06-04 06:11:51+00:00,2019-06-04 08:24:14+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc,False,,,0.05474452554744526,fixed
+generator cooling,2,2019-06-04 06:11:51+00:00,2019-06-04 08:24:14+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm,False,,,0.2281021897810219,fixed
+generator cooling,2,2019-06-04 06:11:51+00:00,2019-06-04 08:24:14+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,fleet,False,,,0.3056569343065693,fixed
+generator cooling,2,2019-06-04 06:11:51+00:00,2019-06-04 08:24:14+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc_fleet,False,,,0.10948905109489052,fixed
+generator cooling,2,2019-06-04 06:11:51+00:00,2019-06-04 08:24:14+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm_fleet,False,,,0.16423357664233576,fixed
+generator cooling,3,2019-06-05 06:22:20+00:00,2019-06-05 08:09:01+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc,False,,,0.05474452554744526,fixed
+generator cooling,3,2019-06-05 06:22:20+00:00,2019-06-05 08:09:01+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm,False,,,0.10948905109489052,fixed
+generator cooling,3,2019-06-05 06:22:20+00:00,2019-06-05 08:09:01+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,fleet,False,,,0.0,fixed
+generator cooling,3,2019-06-05 06:22:20+00:00,2019-06-05 08:09:01+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc_fleet,False,,,0.1332116788321168,fixed
+generator cooling,3,2019-06-05 06:22:20+00:00,2019-06-05 08:09:01+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm_fleet,False,,,0.1177007299270073,fixed
+generator cooling,4,2019-06-05 12:51:01+00:00,2019-06-06 06:40:41+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc,False,,,0.16423357664233576,fixed
+generator cooling,4,2019-06-05 12:51:01+00:00,2019-06-06 06:40:41+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm,False,,,0.20437956204379562,fixed
+generator cooling,4,2019-06-05 12:51:01+00:00,2019-06-06 06:40:41+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,fleet,False,,,0.1332116788321168,fixed
+generator cooling,4,2019-06-05 12:51:01+00:00,2019-06-06 06:40:41+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc_fleet,False,,,0.16423357664233576,fixed
+generator cooling,4,2019-06-05 12:51:01+00:00,2019-06-06 06:40:41+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm_fleet,False,,,0.18704379562043796,fixed
+generator cooling,5,2019-06-06 10:25:49+00:00,2019-06-06 13:21:55+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc,False,,,0.41332116788321166,fixed
+generator cooling,5,2019-06-06 10:25:49+00:00,2019-06-06 13:21:55+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm,False,,,0.36952554744525545,fixed
+generator cooling,5,2019-06-06 10:25:49+00:00,2019-06-06 13:21:55+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,fleet,False,,,0.24543795620437955,fixed
+generator cooling,5,2019-06-06 10:25:49+00:00,2019-06-06 13:21:55+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc_fleet,True,52.0,gen_bearing_front,0.6925182481751825,fixed
+generator cooling,5,2019-06-06 10:25:49+00:00,2019-06-06 13:21:55+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm_fleet,True,50.0,gen_bearing_front,0.3467153284671533,fixed
+generator cooling,6,2019-08-20 08:29:32+00:00,2019-08-20 19:58:23+00:00,10,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.06751824817518248,fixed
+generator cooling,6,2019-08-20 08:29:32+00:00,2019-08-20 19:58:23+00:00,10,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.197992700729927,fixed
+generator cooling,6,2019-08-20 08:29:32+00:00,2019-08-20 19:58:23+00:00,10,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.3193430656934307,fixed
+generator cooling,6,2019-08-20 08:29:32+00:00,2019-08-20 19:58:23+00:00,10,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.072992700729927,fixed
+generator cooling,6,2019-08-20 08:29:32+00:00,2019-08-20 19:58:23+00:00,10,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.13594890510948904,fixed
+generator cooling,1,2019-11-11 14:31:32+00:00,2019-11-13 13:53:24+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.13777372262773724,fixed
+generator cooling,1,2019-11-11 14:31:32+00:00,2019-11-13 13:53:24+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.23996350364963503,fixed
+generator cooling,1,2019-11-11 14:31:32+00:00,2019-11-13 13:53:24+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.33667883211678834,fixed
+generator cooling,1,2019-11-11 14:31:32+00:00,2019-11-13 13:53:24+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.2271897810218978,fixed
+generator cooling,1,2019-11-11 14:31:32+00:00,2019-11-13 13:53:24+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.3777372262773723,fixed
+transformer cooling,4,2019-11-14 18:39:43+00:00,2019-11-14 19:10:05+00:00,1,Overload transformer fan outlet air,False,rc,False,,,0.0,fixed
+transformer cooling,4,2019-11-14 18:39:43+00:00,2019-11-14 19:10:05+00:00,1,Overload transformer fan outlet air,False,gbm,False,,,0.0,fixed
+transformer cooling,4,2019-11-14 18:39:43+00:00,2019-11-14 19:10:05+00:00,1,Overload transformer fan outlet air,False,fleet,False,,,0.0,fixed
+transformer cooling,4,2019-11-14 18:39:43+00:00,2019-11-14 19:10:05+00:00,1,Overload transformer fan outlet air,False,rc_fleet,False,,,0.0,fixed
+transformer cooling,4,2019-11-14 18:39:43+00:00,2019-11-14 19:10:05+00:00,1,Overload transformer fan outlet air,False,gbm_fleet,False,,,0.0,fixed
+generator cooling,2,2019-11-20 12:29:03+00:00,2019-11-20 17:35:05+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.05474452554744526,fixed
+generator cooling,2,2019-11-20 12:29:03+00:00,2019-11-20 17:35:05+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.2281021897810219,fixed
+generator cooling,2,2019-11-20 12:29:03+00:00,2019-11-20 17:35:05+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.3056569343065693,fixed
+generator cooling,2,2019-11-20 12:29:03+00:00,2019-11-20 17:35:05+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.10948905109489052,fixed
+generator cooling,2,2019-11-20 12:29:03+00:00,2019-11-20 17:35:05+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.16423357664233576,fixed
+generator cooling,3,2019-11-21 16:37:15+00:00,2019-11-21 19:26:47+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.05474452554744526,fixed
+generator cooling,3,2019-11-21 16:37:15+00:00,2019-11-21 19:26:47+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.10948905109489052,fixed
+generator cooling,3,2019-11-21 16:37:15+00:00,2019-11-21 19:26:47+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.0,fixed
+generator cooling,3,2019-11-21 16:37:15+00:00,2019-11-21 19:26:47+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.1332116788321168,fixed
+generator cooling,3,2019-11-21 16:37:15+00:00,2019-11-21 19:26:47+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.1177007299270073,fixed
+generator cooling,3,2019-12-11 11:15:31+00:00,2019-12-11 12:58:22+00:00,3,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,rc,False,,,0.05474452554744526,fixed
+generator cooling,3,2019-12-11 11:15:31+00:00,2019-12-11 12:58:22+00:00,3,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,gbm,False,,,0.10948905109489052,fixed
+generator cooling,3,2019-12-11 11:15:31+00:00,2019-12-11 12:58:22+00:00,3,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,fleet,False,,,0.0,fixed
+generator cooling,3,2019-12-11 11:15:31+00:00,2019-12-11 12:58:22+00:00,3,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,rc_fleet,False,,,0.1332116788321168,fixed
+generator cooling,3,2019-12-11 11:15:31+00:00,2019-12-11 12:58:22+00:00,3,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,gbm_fleet,False,,,0.1177007299270073,fixed
+generator cooling,4,2019-12-12 12:18:22+00:00,2019-12-18 14:21:47+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.16423357664233576,fixed
+generator cooling,4,2019-12-12 12:18:22+00:00,2019-12-18 14:21:47+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.20437956204379562,fixed
+generator cooling,4,2019-12-12 12:18:22+00:00,2019-12-18 14:21:47+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.1332116788321168,fixed
+generator cooling,4,2019-12-12 12:18:22+00:00,2019-12-18 14:21:47+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,True,45.0,gen_bearing_rear,0.16423357664233576,fixed
+generator cooling,4,2019-12-12 12:18:22+00:00,2019-12-18 14:21:47+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.18704379562043796,fixed
+generator cooling,5,2019-12-19 12:49:55+00:00,2019-12-19 14:50:58+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,True,55.0,stator,0.41332116788321166,fixed
+generator cooling,5,2019-12-19 12:49:55+00:00,2019-12-19 14:50:58+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,True,5.0,stator,0.36952554744525545,fixed
+generator cooling,5,2019-12-19 12:49:55+00:00,2019-12-19 14:50:58+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.24543795620437955,fixed
+generator cooling,5,2019-12-19 12:49:55+00:00,2019-12-19 14:50:58+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,True,53.0,gen_bearing_front,0.6925182481751825,fixed
+generator cooling,5,2019-12-19 12:49:55+00:00,2019-12-19 14:50:58+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.3467153284671533,fixed
+generator cooling,6,2020-01-29 13:45:05+00:00,2020-01-30 14:32:31+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.06751824817518248,fixed
+generator cooling,6,2020-01-29 13:45:05+00:00,2020-01-30 14:32:31+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.197992700729927,fixed
+generator cooling,6,2020-01-29 13:45:05+00:00,2020-01-30 14:32:31+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.3193430656934307,fixed
+generator cooling,6,2020-01-29 13:45:05+00:00,2020-01-30 14:32:31+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.072992700729927,fixed
+generator cooling,6,2020-01-29 13:45:05+00:00,2020-01-30 14:32:31+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.13594890510948904,fixed
+generator cooling,1,2020-05-25 14:46:45+00:00,2020-05-26 11:39:07+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.13777372262773724,fixed
+generator cooling,1,2020-05-25 14:46:45+00:00,2020-05-26 11:39:07+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.23996350364963503,fixed
+generator cooling,1,2020-05-25 14:46:45+00:00,2020-05-26 11:39:07+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.33667883211678834,fixed
+generator cooling,1,2020-05-25 14:46:45+00:00,2020-05-26 11:39:07+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.2271897810218978,fixed
+generator cooling,1,2020-05-25 14:46:45+00:00,2020-05-26 11:39:07+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.3777372262773723,fixed
+generator cooling,2,2020-05-27 08:24:34+00:00,2020-05-27 15:42:59+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.05474452554744526,fixed
+generator cooling,2,2020-05-27 08:24:34+00:00,2020-05-27 15:42:59+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.2281021897810219,fixed
+generator cooling,2,2020-05-27 08:24:34+00:00,2020-05-27 15:42:59+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.3056569343065693,fixed
+generator cooling,2,2020-05-27 08:24:34+00:00,2020-05-27 15:42:59+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.10948905109489052,fixed
+generator cooling,2,2020-05-27 08:24:34+00:00,2020-05-27 15:42:59+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.16423357664233576,fixed
+generator cooling,3,2020-06-12 14:11:33+00:00,2020-06-13 08:12:33+00:00,2,Overload generator fan 1; Overload generator heating,False,rc,False,,,0.05474452554744526,fixed
+generator cooling,3,2020-06-12 14:11:33+00:00,2020-06-13 08:12:33+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm,False,,,0.10948905109489052,fixed
+generator cooling,3,2020-06-12 14:11:33+00:00,2020-06-13 08:12:33+00:00,2,Overload generator fan 1; Overload generator heating,False,fleet,False,,,0.0,fixed
+generator cooling,3,2020-06-12 14:11:33+00:00,2020-06-13 08:12:33+00:00,2,Overload generator fan 1; Overload generator heating,False,rc_fleet,False,,,0.1332116788321168,fixed
+generator cooling,3,2020-06-12 14:11:33+00:00,2020-06-13 08:12:33+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm_fleet,False,,,0.1177007299270073,fixed
+generator cooling,4,2020-06-13 13:03:52+00:00,2020-06-14 13:06:54+00:00,2,Overload generator fan 1; Overload generator heating,False,rc,False,,,0.16423357664233576,fixed
+generator cooling,4,2020-06-13 13:03:52+00:00,2020-06-14 13:06:54+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm,False,,,0.20437956204379562,fixed
+generator cooling,4,2020-06-13 13:03:52+00:00,2020-06-14 13:06:54+00:00,2,Overload generator fan 1; Overload generator heating,False,fleet,False,,,0.1332116788321168,fixed
+generator cooling,4,2020-06-13 13:03:52+00:00,2020-06-14 13:06:54+00:00,2,Overload generator fan 1; Overload generator heating,False,rc_fleet,False,,,0.16423357664233576,fixed
+generator cooling,4,2020-06-13 13:03:52+00:00,2020-06-14 13:06:54+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm_fleet,False,,,0.18704379562043796,fixed
+generator cooling,5,2020-07-14 08:00:11+00:00,2020-07-14 10:31:52+00:00,1,Overload generator heating,False,rc,False,,,0.41332116788321166,fixed
+generator cooling,5,2020-07-14 08:00:11+00:00,2020-07-14 10:31:52+00:00,1,Overload generator heating,False,gbm,False,,,0.36952554744525545,fixed
+generator cooling,5,2020-07-14 08:00:11+00:00,2020-07-14 10:31:52+00:00,1,Overload generator heating,False,fleet,False,,,0.24543795620437955,fixed
+generator cooling,5,2020-07-14 08:00:11+00:00,2020-07-14 10:31:52+00:00,1,Overload generator heating,False,rc_fleet,True,48.0,gen_bearing_front,0.6925182481751825,fixed
+generator cooling,5,2020-07-14 08:00:11+00:00,2020-07-14 10:31:52+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.3467153284671533,fixed
+generator cooling,6,2020-07-15 08:14:59+00:00,2020-07-15 14:59:18+00:00,4,Overload generator fan 1; Overload generator heating,False,rc,False,,,0.06751824817518248,fixed
+generator cooling,6,2020-07-15 08:14:59+00:00,2020-07-15 14:59:18+00:00,4,Overload generator fan 1; Overload generator heating,False,gbm,False,,,0.197992700729927,fixed
+generator cooling,6,2020-07-15 08:14:59+00:00,2020-07-15 14:59:18+00:00,4,Overload generator fan 1; Overload generator heating,False,fleet,True,48.0,gen_bearing_rear,0.3193430656934307,fixed
+generator cooling,6,2020-07-15 08:14:59+00:00,2020-07-15 14:59:18+00:00,4,Overload generator fan 1; Overload generator heating,False,rc_fleet,False,,,0.072992700729927,fixed
+generator cooling,6,2020-07-15 08:14:59+00:00,2020-07-15 14:59:18+00:00,4,Overload generator fan 1; Overload generator heating,False,gbm_fleet,False,,,0.13594890510948904,fixed
+transformer cooling,2,2020-07-31 17:05:54+00:00,2020-09-22 14:17:26+00:00,1,Overload transformer fan outlet air,False,rc,False,,,0.0,fixed
+transformer cooling,2,2020-07-31 17:05:54+00:00,2020-09-22 14:17:26+00:00,1,Overload transformer fan outlet air,False,gbm,False,,,0.0,fixed
+transformer cooling,2,2020-07-31 17:05:54+00:00,2020-09-22 14:17:26+00:00,1,Overload transformer fan outlet air,False,fleet,False,,,0.10948905109489052,fixed
+transformer cooling,2,2020-07-31 17:05:54+00:00,2020-09-22 14:17:26+00:00,1,Overload transformer fan outlet air,False,rc_fleet,False,,,0.0,fixed
+transformer cooling,2,2020-07-31 17:05:54+00:00,2020-09-22 14:17:26+00:00,1,Overload transformer fan outlet air,False,gbm_fleet,False,,,0.0,fixed
+generator cooling,1,2020-12-03 12:19:48+00:00,2020-12-03 12:44:54+00:00,1,Overload generator heating,False,rc,False,,,0.13777372262773724,fixed
+generator cooling,1,2020-12-03 12:19:48+00:00,2020-12-03 12:44:54+00:00,1,Overload generator heating,False,gbm,False,,,0.23996350364963503,fixed
+generator cooling,1,2020-12-03 12:19:48+00:00,2020-12-03 12:44:54+00:00,1,Overload generator heating,False,fleet,False,,,0.33667883211678834,fixed
+generator cooling,1,2020-12-03 12:19:48+00:00,2020-12-03 12:44:54+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.2271897810218978,fixed
+generator cooling,1,2020-12-03 12:19:48+00:00,2020-12-03 12:44:54+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.3777372262773723,fixed
+generator cooling,2,2020-12-07 12:25:41+00:00,2020-12-07 13:18:19+00:00,1,Overload generator heating,True,rc,False,,,0.05474452554744526,fixed
+generator cooling,2,2020-12-07 12:25:41+00:00,2020-12-07 13:18:19+00:00,1,Overload generator heating,True,gbm,False,,,0.2281021897810219,fixed
+generator cooling,2,2020-12-07 12:25:41+00:00,2020-12-07 13:18:19+00:00,1,Overload generator heating,True,fleet,False,,,0.3056569343065693,fixed
+generator cooling,2,2020-12-07 12:25:41+00:00,2020-12-07 13:18:19+00:00,1,Overload generator heating,True,rc_fleet,True,45.0,stator,0.10948905109489052,fixed
+generator cooling,2,2020-12-07 12:25:41+00:00,2020-12-07 13:18:19+00:00,1,Overload generator heating,True,gbm_fleet,False,,,0.16423357664233576,fixed
+generator cooling,3,2020-12-09 10:47:35+00:00,2020-12-09 11:53:29+00:00,1,Overload generator heating,True,rc,False,,,0.05474452554744526,fixed
+generator cooling,3,2020-12-09 10:47:35+00:00,2020-12-09 11:53:29+00:00,1,Overload generator heating,True,gbm,False,,,0.10948905109489052,fixed
+generator cooling,3,2020-12-09 10:47:35+00:00,2020-12-09 11:53:29+00:00,1,Overload generator heating,True,fleet,False,,,0.0,fixed
+generator cooling,3,2020-12-09 10:47:35+00:00,2020-12-09 11:53:29+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.1332116788321168,fixed
+generator cooling,3,2020-12-09 10:47:35+00:00,2020-12-09 11:53:29+00:00,1,Overload generator heating,True,gbm_fleet,False,,,0.1177007299270073,fixed
+generator cooling,4,2020-12-10 10:31:47+00:00,2020-12-10 13:06:19+00:00,1,Overload generator heating,True,rc,False,,,0.16423357664233576,fixed
+generator cooling,4,2020-12-10 10:31:47+00:00,2020-12-10 13:06:19+00:00,1,Overload generator heating,True,gbm,False,,,0.20437956204379562,fixed
+generator cooling,4,2020-12-10 10:31:47+00:00,2020-12-10 13:06:19+00:00,1,Overload generator heating,True,fleet,False,,,0.1332116788321168,fixed
+generator cooling,4,2020-12-10 10:31:47+00:00,2020-12-10 13:06:19+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.16423357664233576,fixed
+generator cooling,4,2020-12-10 10:31:47+00:00,2020-12-10 13:06:19+00:00,1,Overload generator heating,True,gbm_fleet,False,,,0.18704379562043796,fixed
+gear bearing high temperature,6,2020-12-24 05:14:40+00:00,2020-12-24 05:52:51+00:00,1,High temp. gear bearing 1,False,rc,False,,,0.05474452554744526,fixed
+gear bearing high temperature,6,2020-12-24 05:14:40+00:00,2020-12-24 05:52:51+00:00,1,High temp. gear bearing 1,False,gbm,False,,,0.0,fixed
+gear bearing high temperature,6,2020-12-24 05:14:40+00:00,2020-12-24 05:52:51+00:00,1,High temp. gear bearing 1,False,fleet,False,,,0.0,fixed
+gear bearing high temperature,6,2020-12-24 05:14:40+00:00,2020-12-24 05:52:51+00:00,1,High temp. gear bearing 1,False,rc_fleet,False,,,0.0,fixed
+gear bearing high temperature,6,2020-12-24 05:14:40+00:00,2020-12-24 05:52:51+00:00,1,High temp. gear bearing 1,False,gbm_fleet,False,,,0.0,fixed
+generator cooling,5,2021-01-05 12:11:09+00:00,2021-01-19 14:02:47+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator heating,False,rc,False,,,0.41332116788321166,fixed
+generator cooling,5,2021-01-05 12:11:09+00:00,2021-01-19 14:02:47+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator heating,False,gbm,False,,,0.36952554744525545,fixed
+generator cooling,5,2021-01-05 12:11:09+00:00,2021-01-19 14:02:47+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator heating,False,fleet,False,,,0.24543795620437955,fixed
+generator cooling,5,2021-01-05 12:11:09+00:00,2021-01-19 14:02:47+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator heating,False,rc_fleet,True,38.0,gen_bearing_front,0.6925182481751825,fixed
+generator cooling,5,2021-01-05 12:11:09+00:00,2021-01-19 14:02:47+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator heating,False,gbm_fleet,False,,,0.3467153284671533,fixed
+generator cooling,6,2021-01-20 10:16:02+00:00,2021-01-21 14:13:45+00:00,3,Overload generator fan 1; Overload generator heating,False,rc,False,,,0.06751824817518248,fixed
+generator cooling,6,2021-01-20 10:16:02+00:00,2021-01-21 14:13:45+00:00,3,Overload generator fan 1; Overload generator heating,False,gbm,False,,,0.197992700729927,fixed
+generator cooling,6,2021-01-20 10:16:02+00:00,2021-01-21 14:13:45+00:00,3,Overload generator fan 1; Overload generator heating,False,fleet,False,,,0.3193430656934307,fixed
+generator cooling,6,2021-01-20 10:16:02+00:00,2021-01-21 14:13:45+00:00,3,Overload generator fan 1; Overload generator heating,False,rc_fleet,False,,,0.072992700729927,fixed
+generator cooling,6,2021-01-20 10:16:02+00:00,2021-01-21 14:13:45+00:00,3,Overload generator fan 1; Overload generator heating,False,gbm_fleet,False,,,0.13594890510948904,fixed
+gear bearing high temperature,6,2021-01-21 08:08:49+00:00,2021-01-21 08:39:04+00:00,1,High temp. gear bearing 1,False,rc,False,,,0.05474452554744526,fixed
+gear bearing high temperature,6,2021-01-21 08:08:49+00:00,2021-01-21 08:39:04+00:00,1,High temp. gear bearing 1,False,gbm,False,,,0.0,fixed
+gear bearing high temperature,6,2021-01-21 08:08:49+00:00,2021-01-21 08:39:04+00:00,1,High temp. gear bearing 1,False,fleet,False,,,0.0,fixed
+gear bearing high temperature,6,2021-01-21 08:08:49+00:00,2021-01-21 08:39:04+00:00,1,High temp. gear bearing 1,False,rc_fleet,False,,,0.0,fixed
+gear bearing high temperature,6,2021-01-21 08:08:49+00:00,2021-01-21 08:39:04+00:00,1,High temp. gear bearing 1,False,gbm_fleet,False,,,0.0,fixed
+generator cooling,6,2021-03-01 10:56:19+00:00,2021-03-05 11:31:41+00:00,1,Overload generator heating,False,rc,False,,,0.06751824817518248,fixed
+generator cooling,6,2021-03-01 10:56:19+00:00,2021-03-05 11:31:41+00:00,1,Overload generator heating,False,gbm,False,,,0.197992700729927,fixed
+generator cooling,6,2021-03-01 10:56:19+00:00,2021-03-05 11:31:41+00:00,1,Overload generator heating,False,fleet,False,,,0.3193430656934307,fixed
+generator cooling,6,2021-03-01 10:56:19+00:00,2021-03-05 11:31:41+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.072992700729927,fixed
+generator cooling,6,2021-03-01 10:56:19+00:00,2021-03-05 11:31:41+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.13594890510948904,fixed
+generator cooling,1,2021-03-06 10:50:52+00:00,2021-03-06 16:57:56+00:00,1,Overload generator heating,False,rc,True,52.0,gen_bearing_rear,0.13777372262773724,fixed
+generator cooling,1,2021-03-06 10:50:52+00:00,2021-03-06 16:57:56+00:00,1,Overload generator heating,False,gbm,True,59.0,stator,0.23996350364963503,fixed
+generator cooling,1,2021-03-06 10:50:52+00:00,2021-03-06 16:57:56+00:00,1,Overload generator heating,False,fleet,False,,,0.33667883211678834,fixed
+generator cooling,1,2021-03-06 10:50:52+00:00,2021-03-06 16:57:56+00:00,1,Overload generator heating,False,rc_fleet,True,50.0,gen_bearing_rear,0.2271897810218978,fixed
+generator cooling,1,2021-03-06 10:50:52+00:00,2021-03-06 16:57:56+00:00,1,Overload generator heating,False,gbm_fleet,True,60.0,stator,0.3777372262773723,fixed
+generator cooling,2,2021-03-08 08:43:21+00:00,2021-03-08 12:45:04+00:00,1,Overload generator heating,False,rc,False,,,0.05474452554744526,fixed
+generator cooling,2,2021-03-08 08:43:21+00:00,2021-03-08 12:45:04+00:00,1,Overload generator heating,False,gbm,True,55.0,gen_bearing_front,0.2281021897810219,fixed
+generator cooling,2,2021-03-08 08:43:21+00:00,2021-03-08 12:45:04+00:00,1,Overload generator heating,False,fleet,False,,,0.3056569343065693,fixed
+generator cooling,2,2021-03-08 08:43:21+00:00,2021-03-08 12:45:04+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.10948905109489052,fixed
+generator cooling,2,2021-03-08 08:43:21+00:00,2021-03-08 12:45:04+00:00,1,Overload generator heating,False,gbm_fleet,True,49.0,gen_bearing_front,0.16423357664233576,fixed
+gear bearing high temperature,6,2021-03-27 05:18:50+00:00,2021-03-27 06:27:02+00:00,1,High temp. gear bearing 1,False,rc,False,,,0.05474452554744526,fixed
+gear bearing high temperature,6,2021-03-27 05:18:50+00:00,2021-03-27 06:27:02+00:00,1,High temp. gear bearing 1,False,gbm,False,,,0.0,fixed
+gear bearing high temperature,6,2021-03-27 05:18:50+00:00,2021-03-27 06:27:02+00:00,1,High temp. gear bearing 1,False,fleet,False,,,0.0,fixed
+gear bearing high temperature,6,2021-03-27 05:18:50+00:00,2021-03-27 06:27:02+00:00,1,High temp. gear bearing 1,False,rc_fleet,False,,,0.0,fixed
+gear bearing high temperature,6,2021-03-27 05:18:50+00:00,2021-03-27 06:27:02+00:00,1,High temp. gear bearing 1,False,gbm_fleet,False,,,0.0,fixed
+generator cooling,3,2021-04-10 08:06:47+00:00,2021-04-10 16:03:17+00:00,6,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,rc,False,,,0.05474452554744526,fixed
+generator cooling,3,2021-04-10 08:06:47+00:00,2021-04-10 16:03:17+00:00,6,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,gbm,False,,,0.10948905109489052,fixed
+generator cooling,3,2021-04-10 08:06:47+00:00,2021-04-10 16:03:17+00:00,6,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,fleet,False,,,0.0,fixed
+generator cooling,3,2021-04-10 08:06:47+00:00,2021-04-10 16:03:17+00:00,6,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,rc_fleet,False,,,0.1332116788321168,fixed
+generator cooling,3,2021-04-10 08:06:47+00:00,2021-04-10 16:03:17+00:00,6,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,gbm_fleet,False,,,0.1177007299270073,fixed
+generator cooling,4,2021-05-15 06:55:24+00:00,2021-05-16 10:48:57+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.16423357664233576,fixed
+generator cooling,4,2021-05-15 06:55:24+00:00,2021-05-16 10:48:57+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.20437956204379562,fixed
+generator cooling,4,2021-05-15 06:55:24+00:00,2021-05-16 10:48:57+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.1332116788321168,fixed
+generator cooling,4,2021-05-15 06:55:24+00:00,2021-05-16 10:48:57+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.16423357664233576,fixed
+generator cooling,4,2021-05-15 06:55:24+00:00,2021-05-16 10:48:57+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.18704379562043796,fixed
+generator cooling,3,2021-05-22 06:48:35+00:00,2021-05-22 10:55:02+00:00,2,Overload generator fan 1; Overload generator heating,False,rc,False,,,0.05474452554744526,fixed
+generator cooling,3,2021-05-22 06:48:35+00:00,2021-05-22 10:55:02+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm,False,,,0.10948905109489052,fixed
+generator cooling,3,2021-05-22 06:48:35+00:00,2021-05-22 10:55:02+00:00,2,Overload generator fan 1; Overload generator heating,False,fleet,False,,,0.0,fixed
+generator cooling,3,2021-05-22 06:48:35+00:00,2021-05-22 10:55:02+00:00,2,Overload generator fan 1; Overload generator heating,False,rc_fleet,False,,,0.1332116788321168,fixed
+generator cooling,3,2021-05-22 06:48:35+00:00,2021-05-22 10:55:02+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm_fleet,False,,,0.1177007299270073,fixed
+generator cooling,5,2021-05-25 07:09:06+00:00,2021-05-25 11:14:34+00:00,1,Overload generator heating,False,rc,True,53.0,gen_bearing_rear,0.41332116788321166,fixed
+generator cooling,5,2021-05-25 07:09:06+00:00,2021-05-25 11:14:34+00:00,1,Overload generator heating,False,gbm,True,43.0,gen_bearing_rear,0.36952554744525545,fixed
+generator cooling,5,2021-05-25 07:09:06+00:00,2021-05-25 11:14:34+00:00,1,Overload generator heating,False,fleet,True,41.0,gen_bearing_rear,0.24543795620437955,fixed
+generator cooling,5,2021-05-25 07:09:06+00:00,2021-05-25 11:14:34+00:00,1,Overload generator heating,False,rc_fleet,True,45.0,gen_bearing_rear,0.6925182481751825,fixed
+generator cooling,5,2021-05-25 07:09:06+00:00,2021-05-25 11:14:34+00:00,1,Overload generator heating,False,gbm_fleet,True,55.0,gen_bearing_rear,0.3467153284671533,fixed
+generator cooling,6,2021-05-27 06:40:45+00:00,2021-05-27 08:16:40+00:00,1,Overload generator fan 1,False,rc,False,,,0.06751824817518248,fixed
+generator cooling,6,2021-05-27 06:40:45+00:00,2021-05-27 08:16:40+00:00,1,Overload generator fan 1,False,gbm,False,,,0.197992700729927,fixed
+generator cooling,6,2021-05-27 06:40:45+00:00,2021-05-27 08:16:40+00:00,1,Overload generator fan 1,False,fleet,False,,,0.3193430656934307,fixed
+generator cooling,6,2021-05-27 06:40:45+00:00,2021-05-27 08:16:40+00:00,1,Overload generator fan 1,False,rc_fleet,False,,,0.072992700729927,fixed
+generator cooling,6,2021-05-27 06:40:45+00:00,2021-05-27 08:16:40+00:00,1,Overload generator fan 1,False,gbm_fleet,False,,,0.13594890510948904,fixed
+generator cooling,6,2021-06-23 09:34:20+00:00,2021-06-23 11:23:16+00:00,1,Overload generator heating,False,rc,False,,,0.06751824817518248,fixed
+generator cooling,6,2021-06-23 09:34:20+00:00,2021-06-23 11:23:16+00:00,1,Overload generator heating,False,gbm,False,,,0.197992700729927,fixed
+generator cooling,6,2021-06-23 09:34:20+00:00,2021-06-23 11:23:16+00:00,1,Overload generator heating,False,fleet,False,,,0.3193430656934307,fixed
+generator cooling,6,2021-06-23 09:34:20+00:00,2021-06-23 11:23:16+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.072992700729927,fixed
+generator cooling,6,2021-06-23 09:34:20+00:00,2021-06-23 11:23:16+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.13594890510948904,fixed
+generator cooling,1,2021-07-29 13:51:37+00:00,2021-07-29 13:51:48+00:00,1,Overload generator fan 1,False,rc,False,,,0.13777372262773724,fixed
+generator cooling,1,2021-07-29 13:51:37+00:00,2021-07-29 13:51:48+00:00,1,Overload generator fan 1,False,gbm,False,,,0.23996350364963503,fixed
+generator cooling,1,2021-07-29 13:51:37+00:00,2021-07-29 13:51:48+00:00,1,Overload generator fan 1,False,fleet,False,,,0.33667883211678834,fixed
+generator cooling,1,2021-07-29 13:51:37+00:00,2021-07-29 13:51:48+00:00,1,Overload generator fan 1,False,rc_fleet,False,,,0.2271897810218978,fixed
+generator cooling,1,2021-07-29 13:51:37+00:00,2021-07-29 13:51:48+00:00,1,Overload generator fan 1,False,gbm_fleet,False,,,0.3777372262773723,fixed
+generator cooling,1,2021-09-06 11:46:26+00:00,2021-09-06 13:22:35+00:00,1,Overload generator heating,True,rc,False,,,0.13777372262773724,fixed
+generator cooling,1,2021-09-06 11:46:26+00:00,2021-09-06 13:22:35+00:00,1,Overload generator heating,True,gbm,False,,,0.23996350364963503,fixed
+generator cooling,1,2021-09-06 11:46:26+00:00,2021-09-06 13:22:35+00:00,1,Overload generator heating,True,fleet,False,,,0.33667883211678834,fixed
+generator cooling,1,2021-09-06 11:46:26+00:00,2021-09-06 13:22:35+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.2271897810218978,fixed
+generator cooling,1,2021-09-06 11:46:26+00:00,2021-09-06 13:22:35+00:00,1,Overload generator heating,True,gbm_fleet,True,5.0,stator,0.3777372262773723,fixed
+generator cooling,2,2021-09-08 09:18:22+00:00,2021-09-08 10:37:03+00:00,1,Overload generator heating,True,rc,False,,,0.05474452554744526,fixed
+generator cooling,2,2021-09-08 09:18:22+00:00,2021-09-08 10:37:03+00:00,1,Overload generator heating,True,gbm,False,,,0.2281021897810219,fixed
+generator cooling,2,2021-09-08 09:18:22+00:00,2021-09-08 10:37:03+00:00,1,Overload generator heating,True,fleet,False,,,0.3056569343065693,fixed
+generator cooling,2,2021-09-08 09:18:22+00:00,2021-09-08 10:37:03+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.10948905109489052,fixed
+generator cooling,2,2021-09-08 09:18:22+00:00,2021-09-08 10:37:03+00:00,1,Overload generator heating,True,gbm_fleet,False,,,0.16423357664233576,fixed
+generator cooling,3,2021-09-09 09:43:27+00:00,2021-09-09 10:45:37+00:00,1,Overload generator heating,True,rc,False,,,0.05474452554744526,fixed
+generator cooling,3,2021-09-09 09:43:27+00:00,2021-09-09 10:45:37+00:00,1,Overload generator heating,True,gbm,False,,,0.10948905109489052,fixed
+generator cooling,3,2021-09-09 09:43:27+00:00,2021-09-09 10:45:37+00:00,1,Overload generator heating,True,fleet,False,,,0.0,fixed
+generator cooling,3,2021-09-09 09:43:27+00:00,2021-09-09 10:45:37+00:00,1,Overload generator heating,True,rc_fleet,True,39.0,stator,0.1332116788321168,fixed
+generator cooling,3,2021-09-09 09:43:27+00:00,2021-09-09 10:45:37+00:00,1,Overload generator heating,True,gbm_fleet,True,41.0,stator,0.1177007299270073,fixed
+generator cooling,4,2021-09-10 09:28:31+00:00,2021-09-10 10:01:24+00:00,1,Overload generator heating,True,rc,False,,,0.16423357664233576,fixed
+generator cooling,4,2021-09-10 09:28:31+00:00,2021-09-10 10:01:24+00:00,1,Overload generator heating,True,gbm,False,,,0.20437956204379562,fixed
+generator cooling,4,2021-09-10 09:28:31+00:00,2021-09-10 10:01:24+00:00,1,Overload generator heating,True,fleet,False,,,0.1332116788321168,fixed
+generator cooling,4,2021-09-10 09:28:31+00:00,2021-09-10 10:01:24+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.16423357664233576,fixed
+generator cooling,4,2021-09-10 09:28:31+00:00,2021-09-10 10:01:24+00:00,1,Overload generator heating,True,gbm_fleet,False,,,0.18704379562043796,fixed
+generator cooling,5,2021-09-16 09:50:06+00:00,2021-09-16 11:19:30+00:00,1,Overload generator heating,False,rc,False,,,0.41332116788321166,fixed
+generator cooling,5,2021-09-16 09:50:06+00:00,2021-09-16 11:19:30+00:00,1,Overload generator heating,False,gbm,False,,,0.36952554744525545,fixed
+generator cooling,5,2021-09-16 09:50:06+00:00,2021-09-16 11:19:30+00:00,1,Overload generator heating,False,fleet,False,,,0.24543795620437955,fixed
+generator cooling,5,2021-09-16 09:50:06+00:00,2021-09-16 11:19:30+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.6925182481751825,fixed
+generator cooling,5,2021-09-16 09:50:06+00:00,2021-09-16 11:19:30+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.3467153284671533,fixed
+generator cooling,6,2021-09-17 10:22:31+00:00,2021-09-17 12:08:24+00:00,1,Overload generator heating,False,rc,False,,,0.06751824817518248,fixed
+generator cooling,6,2021-09-17 10:22:31+00:00,2021-09-17 12:08:24+00:00,1,Overload generator heating,False,gbm,False,,,0.197992700729927,fixed
+generator cooling,6,2021-09-17 10:22:31+00:00,2021-09-17 12:08:24+00:00,1,Overload generator heating,False,fleet,False,,,0.3193430656934307,fixed
+generator cooling,6,2021-09-17 10:22:31+00:00,2021-09-17 12:08:24+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.072992700729927,fixed
+generator cooling,6,2021-09-17 10:22:31+00:00,2021-09-17 12:08:24+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.13594890510948904,fixed
+generator cooling,4,2021-11-11 12:13:56+00:00,2021-11-11 12:23:41+00:00,1,Overload generator fan 1,False,rc,False,,,0.16423357664233576,fixed
+generator cooling,4,2021-11-11 12:13:56+00:00,2021-11-11 12:23:41+00:00,1,Overload generator fan 1,False,gbm,False,,,0.20437956204379562,fixed
+generator cooling,4,2021-11-11 12:13:56+00:00,2021-11-11 12:23:41+00:00,1,Overload generator fan 1,False,fleet,False,,,0.1332116788321168,fixed
+generator cooling,4,2021-11-11 12:13:56+00:00,2021-11-11 12:23:41+00:00,1,Overload generator fan 1,False,rc_fleet,False,,,0.16423357664233576,fixed
+generator cooling,4,2021-11-11 12:13:56+00:00,2021-11-11 12:23:41+00:00,1,Overload generator fan 1,False,gbm_fleet,False,,,0.18704379562043796,fixed
+generator cooling,6,2021-11-11 13:10:47+00:00,2021-11-11 13:25:39+00:00,1,Overload generator fan 1,False,rc,False,,,0.06751824817518248,fixed
+generator cooling,6,2021-11-11 13:10:47+00:00,2021-11-11 13:25:39+00:00,1,Overload generator fan 1,False,gbm,False,,,0.197992700729927,fixed
+generator cooling,6,2021-11-11 13:10:47+00:00,2021-11-11 13:25:39+00:00,1,Overload generator fan 1,False,fleet,True,43.0,gen_bearing_front,0.3193430656934307,fixed
+generator cooling,6,2021-11-11 13:10:47+00:00,2021-11-11 13:25:39+00:00,1,Overload generator fan 1,False,rc_fleet,False,,,0.072992700729927,fixed
+generator cooling,6,2021-11-11 13:10:47+00:00,2021-11-11 13:25:39+00:00,1,Overload generator fan 1,False,gbm_fleet,False,,,0.13594890510948904,fixed
+generator cooling,5,2021-11-15 11:38:47+00:00,2021-11-16 13:45:04+00:00,1,Overload generator heating,False,rc,False,,,0.41332116788321166,fixed
+generator cooling,5,2021-11-15 11:38:47+00:00,2021-11-16 13:45:04+00:00,1,Overload generator heating,False,gbm,True,26.0,gen_bearing_rear,0.36952554744525545,fixed
+generator cooling,5,2021-11-15 11:38:47+00:00,2021-11-16 13:45:04+00:00,1,Overload generator heating,False,fleet,True,24.0,gen_bearing_rear,0.24543795620437955,fixed
+generator cooling,5,2021-11-15 11:38:47+00:00,2021-11-16 13:45:04+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.6925182481751825,fixed
+generator cooling,5,2021-11-15 11:38:47+00:00,2021-11-16 13:45:04+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.3467153284671533,fixed
+gear bearing high temperature,6,2021-12-03 06:21:34+00:00,2021-12-03 06:42:18+00:00,1,High temp. gear bearing 1,False,rc,False,,,0.05474452554744526,fixed
+gear bearing high temperature,6,2021-12-03 06:21:34+00:00,2021-12-03 06:42:18+00:00,1,High temp. gear bearing 1,False,gbm,False,,,0.0,fixed
+gear bearing high temperature,6,2021-12-03 06:21:34+00:00,2021-12-03 06:42:18+00:00,1,High temp. gear bearing 1,False,fleet,False,,,0.0,fixed
+gear bearing high temperature,6,2021-12-03 06:21:34+00:00,2021-12-03 06:42:18+00:00,1,High temp. gear bearing 1,False,rc_fleet,False,,,0.0,fixed
+gear bearing high temperature,6,2021-12-03 06:21:34+00:00,2021-12-03 06:42:18+00:00,1,High temp. gear bearing 1,False,gbm_fleet,False,,,0.0,fixed
+gear oil system,1,2019-02-24 16:46:28+00:00,2019-05-30 07:34:04+00:00,3,Oil filter gear choked,False,rc,False,,,0.13503649635036497,trailing
+gear oil system,1,2019-02-24 16:46:28+00:00,2019-05-30 07:34:04+00:00,3,Oil filter gear choked,False,gbm,False,,,0.08211678832116788,trailing
+gear oil system,1,2019-02-24 16:46:28+00:00,2019-05-30 07:34:04+00:00,3,Oil filter gear choked,False,fleet,False,,,0.0,trailing
+gear oil system,1,2019-02-24 16:46:28+00:00,2019-05-30 07:34:04+00:00,3,Oil filter gear choked,False,rc_fleet,False,,,0.13686131386861314,trailing
+gear oil system,1,2019-02-24 16:46:28+00:00,2019-05-30 07:34:04+00:00,3,Oil filter gear choked,False,gbm_fleet,False,,,0.1395985401459854,trailing
+generator cooling,2,2019-03-25 10:31:51+00:00,2019-03-25 11:30:41+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.0812043795620438,trailing
+generator cooling,2,2019-03-25 10:31:51+00:00,2019-03-25 11:30:41+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.23357664233576642,trailing
+generator cooling,2,2019-03-25 10:31:51+00:00,2019-03-25 11:30:41+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,True,10.0,stator,0.28832116788321166,trailing
+generator cooling,2,2019-03-25 10:31:51+00:00,2019-03-25 11:30:41+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.05474452554744526,trailing
+generator cooling,2,2019-03-25 10:31:51+00:00,2019-03-25 11:30:41+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,3,2019-03-25 14:43:47+00:00,2019-03-25 14:59:57+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.05474452554744526,trailing
+generator cooling,3,2019-03-25 14:43:47+00:00,2019-03-25 14:59:57+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.05474452554744526,trailing
+generator cooling,3,2019-03-25 14:43:47+00:00,2019-03-25 14:59:57+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.0,trailing
+generator cooling,3,2019-03-25 14:43:47+00:00,2019-03-25 14:59:57+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.12773722627737227,trailing
+generator cooling,3,2019-03-25 14:43:47+00:00,2019-03-25 14:59:57+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.13686131386861314,trailing
+generator cooling,1,2019-05-30 11:40:01+00:00,2019-05-30 13:11:16+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.10948905109489052,trailing
+generator cooling,1,2019-05-30 11:40:01+00:00,2019-05-30 13:11:16+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.16970802919708028,trailing
+generator cooling,1,2019-05-30 11:40:01+00:00,2019-05-30 13:11:16+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,True,52.0,gen_bearing_rear,0.21897810218978103,trailing
+generator cooling,1,2019-05-30 11:40:01+00:00,2019-05-30 13:11:16+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,True,39.0,gen_bearing_rear,0.17883211678832117,trailing
+generator cooling,1,2019-05-30 11:40:01+00:00,2019-05-30 13:11:16+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,True,43.0,gen_bearing_rear,0.10948905109489052,trailing
+generator cooling,2,2019-06-04 06:11:51+00:00,2019-06-04 08:24:14+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc,False,,,0.0812043795620438,trailing
+generator cooling,2,2019-06-04 06:11:51+00:00,2019-06-04 08:24:14+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm,False,,,0.23357664233576642,trailing
+generator cooling,2,2019-06-04 06:11:51+00:00,2019-06-04 08:24:14+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,fleet,False,,,0.28832116788321166,trailing
+generator cooling,2,2019-06-04 06:11:51+00:00,2019-06-04 08:24:14+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc_fleet,False,,,0.05474452554744526,trailing
+generator cooling,2,2019-06-04 06:11:51+00:00,2019-06-04 08:24:14+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,3,2019-06-05 06:22:20+00:00,2019-06-05 08:09:01+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc,False,,,0.05474452554744526,trailing
+generator cooling,3,2019-06-05 06:22:20+00:00,2019-06-05 08:09:01+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm,False,,,0.05474452554744526,trailing
+generator cooling,3,2019-06-05 06:22:20+00:00,2019-06-05 08:09:01+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,fleet,False,,,0.0,trailing
+generator cooling,3,2019-06-05 06:22:20+00:00,2019-06-05 08:09:01+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc_fleet,False,,,0.12773722627737227,trailing
+generator cooling,3,2019-06-05 06:22:20+00:00,2019-06-05 08:09:01+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm_fleet,False,,,0.13686131386861314,trailing
+generator cooling,4,2019-06-05 12:51:01+00:00,2019-06-06 06:40:41+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc,False,,,0.19708029197080293,trailing
+generator cooling,4,2019-06-05 12:51:01+00:00,2019-06-06 06:40:41+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm,False,,,0.2791970802919708,trailing
+generator cooling,4,2019-06-05 12:51:01+00:00,2019-06-06 06:40:41+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,fleet,False,,,0.10948905109489052,trailing
+generator cooling,4,2019-06-05 12:51:01+00:00,2019-06-06 06:40:41+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc_fleet,False,,,0.25,trailing
+generator cooling,4,2019-06-05 12:51:01+00:00,2019-06-06 06:40:41+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm_fleet,False,,,0.291970802919708,trailing
+generator cooling,5,2019-06-06 10:25:49+00:00,2019-06-06 13:21:55+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc,False,,,0.0812043795620438,trailing
+generator cooling,5,2019-06-06 10:25:49+00:00,2019-06-06 13:21:55+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm,False,,,0.07572992700729927,trailing
+generator cooling,5,2019-06-06 10:25:49+00:00,2019-06-06 13:21:55+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,fleet,False,,,0.14324817518248176,trailing
+generator cooling,5,2019-06-06 10:25:49+00:00,2019-06-06 13:21:55+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,rc_fleet,False,,,0.16058394160583941,trailing
+generator cooling,5,2019-06-06 10:25:49+00:00,2019-06-06 13:21:55+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,True,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,6,2019-08-20 08:29:32+00:00,2019-08-20 19:58:23+00:00,10,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.06751824817518248,trailing
+generator cooling,6,2019-08-20 08:29:32+00:00,2019-08-20 19:58:23+00:00,10,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.06751824817518248,trailing
+generator cooling,6,2019-08-20 08:29:32+00:00,2019-08-20 19:58:23+00:00,10,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.072992700729927,trailing
+generator cooling,6,2019-08-20 08:29:32+00:00,2019-08-20 19:58:23+00:00,10,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.06843065693430657,trailing
+generator cooling,6,2019-08-20 08:29:32+00:00,2019-08-20 19:58:23+00:00,10,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.07572992700729927,trailing
+generator cooling,1,2019-11-11 14:31:32+00:00,2019-11-13 13:53:24+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.10948905109489052,trailing
+generator cooling,1,2019-11-11 14:31:32+00:00,2019-11-13 13:53:24+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.16970802919708028,trailing
+generator cooling,1,2019-11-11 14:31:32+00:00,2019-11-13 13:53:24+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.21897810218978103,trailing
+generator cooling,1,2019-11-11 14:31:32+00:00,2019-11-13 13:53:24+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.17883211678832117,trailing
+generator cooling,1,2019-11-11 14:31:32+00:00,2019-11-13 13:53:24+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+transformer cooling,4,2019-11-14 18:39:43+00:00,2019-11-14 19:10:05+00:00,1,Overload transformer fan outlet air,False,rc,False,,,0.0,trailing
+transformer cooling,4,2019-11-14 18:39:43+00:00,2019-11-14 19:10:05+00:00,1,Overload transformer fan outlet air,False,gbm,False,,,0.0,trailing
+transformer cooling,4,2019-11-14 18:39:43+00:00,2019-11-14 19:10:05+00:00,1,Overload transformer fan outlet air,False,fleet,False,,,0.0,trailing
+transformer cooling,4,2019-11-14 18:39:43+00:00,2019-11-14 19:10:05+00:00,1,Overload transformer fan outlet air,False,rc_fleet,False,,,0.0,trailing
+transformer cooling,4,2019-11-14 18:39:43+00:00,2019-11-14 19:10:05+00:00,1,Overload transformer fan outlet air,False,gbm_fleet,False,,,0.0,trailing
+generator cooling,2,2019-11-20 12:29:03+00:00,2019-11-20 17:35:05+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.0812043795620438,trailing
+generator cooling,2,2019-11-20 12:29:03+00:00,2019-11-20 17:35:05+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.23357664233576642,trailing
+generator cooling,2,2019-11-20 12:29:03+00:00,2019-11-20 17:35:05+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.28832116788321166,trailing
+generator cooling,2,2019-11-20 12:29:03+00:00,2019-11-20 17:35:05+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.05474452554744526,trailing
+generator cooling,2,2019-11-20 12:29:03+00:00,2019-11-20 17:35:05+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,3,2019-11-21 16:37:15+00:00,2019-11-21 19:26:47+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.05474452554744526,trailing
+generator cooling,3,2019-11-21 16:37:15+00:00,2019-11-21 19:26:47+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.05474452554744526,trailing
+generator cooling,3,2019-11-21 16:37:15+00:00,2019-11-21 19:26:47+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.0,trailing
+generator cooling,3,2019-11-21 16:37:15+00:00,2019-11-21 19:26:47+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.12773722627737227,trailing
+generator cooling,3,2019-11-21 16:37:15+00:00,2019-11-21 19:26:47+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.13686131386861314,trailing
+generator cooling,3,2019-12-11 11:15:31+00:00,2019-12-11 12:58:22+00:00,3,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,rc,False,,,0.05474452554744526,trailing
+generator cooling,3,2019-12-11 11:15:31+00:00,2019-12-11 12:58:22+00:00,3,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,gbm,False,,,0.05474452554744526,trailing
+generator cooling,3,2019-12-11 11:15:31+00:00,2019-12-11 12:58:22+00:00,3,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,fleet,False,,,0.0,trailing
+generator cooling,3,2019-12-11 11:15:31+00:00,2019-12-11 12:58:22+00:00,3,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,rc_fleet,False,,,0.12773722627737227,trailing
+generator cooling,3,2019-12-11 11:15:31+00:00,2019-12-11 12:58:22+00:00,3,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,gbm_fleet,False,,,0.13686131386861314,trailing
+generator cooling,4,2019-12-12 12:18:22+00:00,2019-12-18 14:21:47+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.19708029197080293,trailing
+generator cooling,4,2019-12-12 12:18:22+00:00,2019-12-18 14:21:47+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.2791970802919708,trailing
+generator cooling,4,2019-12-12 12:18:22+00:00,2019-12-18 14:21:47+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.10948905109489052,trailing
+generator cooling,4,2019-12-12 12:18:22+00:00,2019-12-18 14:21:47+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,True,47.0,gen_bearing_rear,0.25,trailing
+generator cooling,4,2019-12-12 12:18:22+00:00,2019-12-18 14:21:47+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,True,41.0,gen_bearing_rear,0.291970802919708,trailing
+generator cooling,5,2019-12-19 12:49:55+00:00,2019-12-19 14:50:58+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.0812043795620438,trailing
+generator cooling,5,2019-12-19 12:49:55+00:00,2019-12-19 14:50:58+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.07572992700729927,trailing
+generator cooling,5,2019-12-19 12:49:55+00:00,2019-12-19 14:50:58+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.14324817518248176,trailing
+generator cooling,5,2019-12-19 12:49:55+00:00,2019-12-19 14:50:58+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.16058394160583941,trailing
+generator cooling,5,2019-12-19 12:49:55+00:00,2019-12-19 14:50:58+00:00,4,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,6,2020-01-29 13:45:05+00:00,2020-01-30 14:32:31+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.06751824817518248,trailing
+generator cooling,6,2020-01-29 13:45:05+00:00,2020-01-30 14:32:31+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.06751824817518248,trailing
+generator cooling,6,2020-01-29 13:45:05+00:00,2020-01-30 14:32:31+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.072992700729927,trailing
+generator cooling,6,2020-01-29 13:45:05+00:00,2020-01-30 14:32:31+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.06843065693430657,trailing
+generator cooling,6,2020-01-29 13:45:05+00:00,2020-01-30 14:32:31+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.07572992700729927,trailing
+generator cooling,1,2020-05-25 14:46:45+00:00,2020-05-26 11:39:07+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.10948905109489052,trailing
+generator cooling,1,2020-05-25 14:46:45+00:00,2020-05-26 11:39:07+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.16970802919708028,trailing
+generator cooling,1,2020-05-25 14:46:45+00:00,2020-05-26 11:39:07+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.21897810218978103,trailing
+generator cooling,1,2020-05-25 14:46:45+00:00,2020-05-26 11:39:07+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.17883211678832117,trailing
+generator cooling,1,2020-05-25 14:46:45+00:00,2020-05-26 11:39:07+00:00,8,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,2,2020-05-27 08:24:34+00:00,2020-05-27 15:42:59+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.0812043795620438,trailing
+generator cooling,2,2020-05-27 08:24:34+00:00,2020-05-27 15:42:59+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.23357664233576642,trailing
+generator cooling,2,2020-05-27 08:24:34+00:00,2020-05-27 15:42:59+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.28832116788321166,trailing
+generator cooling,2,2020-05-27 08:24:34+00:00,2020-05-27 15:42:59+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.05474452554744526,trailing
+generator cooling,2,2020-05-27 08:24:34+00:00,2020-05-27 15:42:59+00:00,7,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,3,2020-06-12 14:11:33+00:00,2020-06-13 08:12:33+00:00,2,Overload generator fan 1; Overload generator heating,False,rc,False,,,0.05474452554744526,trailing
+generator cooling,3,2020-06-12 14:11:33+00:00,2020-06-13 08:12:33+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm,False,,,0.05474452554744526,trailing
+generator cooling,3,2020-06-12 14:11:33+00:00,2020-06-13 08:12:33+00:00,2,Overload generator fan 1; Overload generator heating,False,fleet,False,,,0.0,trailing
+generator cooling,3,2020-06-12 14:11:33+00:00,2020-06-13 08:12:33+00:00,2,Overload generator fan 1; Overload generator heating,False,rc_fleet,False,,,0.12773722627737227,trailing
+generator cooling,3,2020-06-12 14:11:33+00:00,2020-06-13 08:12:33+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm_fleet,False,,,0.13686131386861314,trailing
+generator cooling,4,2020-06-13 13:03:52+00:00,2020-06-14 13:06:54+00:00,2,Overload generator fan 1; Overload generator heating,False,rc,False,,,0.19708029197080293,trailing
+generator cooling,4,2020-06-13 13:03:52+00:00,2020-06-14 13:06:54+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm,False,,,0.2791970802919708,trailing
+generator cooling,4,2020-06-13 13:03:52+00:00,2020-06-14 13:06:54+00:00,2,Overload generator fan 1; Overload generator heating,False,fleet,False,,,0.10948905109489052,trailing
+generator cooling,4,2020-06-13 13:03:52+00:00,2020-06-14 13:06:54+00:00,2,Overload generator fan 1; Overload generator heating,False,rc_fleet,False,,,0.25,trailing
+generator cooling,4,2020-06-13 13:03:52+00:00,2020-06-14 13:06:54+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm_fleet,False,,,0.291970802919708,trailing
+generator cooling,5,2020-07-14 08:00:11+00:00,2020-07-14 10:31:52+00:00,1,Overload generator heating,False,rc,False,,,0.0812043795620438,trailing
+generator cooling,5,2020-07-14 08:00:11+00:00,2020-07-14 10:31:52+00:00,1,Overload generator heating,False,gbm,False,,,0.07572992700729927,trailing
+generator cooling,5,2020-07-14 08:00:11+00:00,2020-07-14 10:31:52+00:00,1,Overload generator heating,False,fleet,False,,,0.14324817518248176,trailing
+generator cooling,5,2020-07-14 08:00:11+00:00,2020-07-14 10:31:52+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.16058394160583941,trailing
+generator cooling,5,2020-07-14 08:00:11+00:00,2020-07-14 10:31:52+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,6,2020-07-15 08:14:59+00:00,2020-07-15 14:59:18+00:00,4,Overload generator fan 1; Overload generator heating,False,rc,False,,,0.06751824817518248,trailing
+generator cooling,6,2020-07-15 08:14:59+00:00,2020-07-15 14:59:18+00:00,4,Overload generator fan 1; Overload generator heating,False,gbm,False,,,0.06751824817518248,trailing
+generator cooling,6,2020-07-15 08:14:59+00:00,2020-07-15 14:59:18+00:00,4,Overload generator fan 1; Overload generator heating,False,fleet,False,,,0.072992700729927,trailing
+generator cooling,6,2020-07-15 08:14:59+00:00,2020-07-15 14:59:18+00:00,4,Overload generator fan 1; Overload generator heating,False,rc_fleet,False,,,0.06843065693430657,trailing
+generator cooling,6,2020-07-15 08:14:59+00:00,2020-07-15 14:59:18+00:00,4,Overload generator fan 1; Overload generator heating,False,gbm_fleet,False,,,0.07572992700729927,trailing
+transformer cooling,2,2020-07-31 17:05:54+00:00,2020-09-22 14:17:26+00:00,1,Overload transformer fan outlet air,False,rc,False,,,0.0,trailing
+transformer cooling,2,2020-07-31 17:05:54+00:00,2020-09-22 14:17:26+00:00,1,Overload transformer fan outlet air,False,gbm,False,,,0.0,trailing
+transformer cooling,2,2020-07-31 17:05:54+00:00,2020-09-22 14:17:26+00:00,1,Overload transformer fan outlet air,False,fleet,False,,,0.0,trailing
+transformer cooling,2,2020-07-31 17:05:54+00:00,2020-09-22 14:17:26+00:00,1,Overload transformer fan outlet air,False,rc_fleet,False,,,0.0,trailing
+transformer cooling,2,2020-07-31 17:05:54+00:00,2020-09-22 14:17:26+00:00,1,Overload transformer fan outlet air,False,gbm_fleet,False,,,0.0,trailing
+generator cooling,1,2020-12-03 12:19:48+00:00,2020-12-03 12:44:54+00:00,1,Overload generator heating,False,rc,False,,,0.10948905109489052,trailing
+generator cooling,1,2020-12-03 12:19:48+00:00,2020-12-03 12:44:54+00:00,1,Overload generator heating,False,gbm,False,,,0.16970802919708028,trailing
+generator cooling,1,2020-12-03 12:19:48+00:00,2020-12-03 12:44:54+00:00,1,Overload generator heating,False,fleet,False,,,0.21897810218978103,trailing
+generator cooling,1,2020-12-03 12:19:48+00:00,2020-12-03 12:44:54+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.17883211678832117,trailing
+generator cooling,1,2020-12-03 12:19:48+00:00,2020-12-03 12:44:54+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,2,2020-12-07 12:25:41+00:00,2020-12-07 13:18:19+00:00,1,Overload generator heating,True,rc,False,,,0.0812043795620438,trailing
+generator cooling,2,2020-12-07 12:25:41+00:00,2020-12-07 13:18:19+00:00,1,Overload generator heating,True,gbm,False,,,0.23357664233576642,trailing
+generator cooling,2,2020-12-07 12:25:41+00:00,2020-12-07 13:18:19+00:00,1,Overload generator heating,True,fleet,True,20.0,stator,0.28832116788321166,trailing
+generator cooling,2,2020-12-07 12:25:41+00:00,2020-12-07 13:18:19+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.05474452554744526,trailing
+generator cooling,2,2020-12-07 12:25:41+00:00,2020-12-07 13:18:19+00:00,1,Overload generator heating,True,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,3,2020-12-09 10:47:35+00:00,2020-12-09 11:53:29+00:00,1,Overload generator heating,True,rc,False,,,0.05474452554744526,trailing
+generator cooling,3,2020-12-09 10:47:35+00:00,2020-12-09 11:53:29+00:00,1,Overload generator heating,True,gbm,False,,,0.05474452554744526,trailing
+generator cooling,3,2020-12-09 10:47:35+00:00,2020-12-09 11:53:29+00:00,1,Overload generator heating,True,fleet,False,,,0.0,trailing
+generator cooling,3,2020-12-09 10:47:35+00:00,2020-12-09 11:53:29+00:00,1,Overload generator heating,True,rc_fleet,True,12.0,gen_bearing_rear,0.12773722627737227,trailing
+generator cooling,3,2020-12-09 10:47:35+00:00,2020-12-09 11:53:29+00:00,1,Overload generator heating,True,gbm_fleet,True,21.0,gen_bearing_rear,0.13686131386861314,trailing
+generator cooling,4,2020-12-10 10:31:47+00:00,2020-12-10 13:06:19+00:00,1,Overload generator heating,True,rc,False,,,0.19708029197080293,trailing
+generator cooling,4,2020-12-10 10:31:47+00:00,2020-12-10 13:06:19+00:00,1,Overload generator heating,True,gbm,False,,,0.2791970802919708,trailing
+generator cooling,4,2020-12-10 10:31:47+00:00,2020-12-10 13:06:19+00:00,1,Overload generator heating,True,fleet,False,,,0.10948905109489052,trailing
+generator cooling,4,2020-12-10 10:31:47+00:00,2020-12-10 13:06:19+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.25,trailing
+generator cooling,4,2020-12-10 10:31:47+00:00,2020-12-10 13:06:19+00:00,1,Overload generator heating,True,gbm_fleet,False,,,0.291970802919708,trailing
+gear bearing high temperature,6,2020-12-24 05:14:40+00:00,2020-12-24 05:52:51+00:00,1,High temp. gear bearing 1,False,rc,False,,,0.06478102189781022,trailing
+gear bearing high temperature,6,2020-12-24 05:14:40+00:00,2020-12-24 05:52:51+00:00,1,High temp. gear bearing 1,False,gbm,False,,,0.0,trailing
+gear bearing high temperature,6,2020-12-24 05:14:40+00:00,2020-12-24 05:52:51+00:00,1,High temp. gear bearing 1,False,fleet,False,,,0.0,trailing
+gear bearing high temperature,6,2020-12-24 05:14:40+00:00,2020-12-24 05:52:51+00:00,1,High temp. gear bearing 1,False,rc_fleet,False,,,0.05474452554744526,trailing
+gear bearing high temperature,6,2020-12-24 05:14:40+00:00,2020-12-24 05:52:51+00:00,1,High temp. gear bearing 1,False,gbm_fleet,False,,,0.05474452554744526,trailing
+generator cooling,5,2021-01-05 12:11:09+00:00,2021-01-19 14:02:47+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator heating,False,rc,False,,,0.0812043795620438,trailing
+generator cooling,5,2021-01-05 12:11:09+00:00,2021-01-19 14:02:47+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator heating,False,gbm,False,,,0.07572992700729927,trailing
+generator cooling,5,2021-01-05 12:11:09+00:00,2021-01-19 14:02:47+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator heating,False,fleet,False,,,0.14324817518248176,trailing
+generator cooling,5,2021-01-05 12:11:09+00:00,2021-01-19 14:02:47+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator heating,False,rc_fleet,False,,,0.16058394160583941,trailing
+generator cooling,5,2021-01-05 12:11:09+00:00,2021-01-19 14:02:47+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,6,2021-01-20 10:16:02+00:00,2021-01-21 14:13:45+00:00,3,Overload generator fan 1; Overload generator heating,False,rc,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-01-20 10:16:02+00:00,2021-01-21 14:13:45+00:00,3,Overload generator fan 1; Overload generator heating,False,gbm,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-01-20 10:16:02+00:00,2021-01-21 14:13:45+00:00,3,Overload generator fan 1; Overload generator heating,False,fleet,False,,,0.072992700729927,trailing
+generator cooling,6,2021-01-20 10:16:02+00:00,2021-01-21 14:13:45+00:00,3,Overload generator fan 1; Overload generator heating,False,rc_fleet,False,,,0.06843065693430657,trailing
+generator cooling,6,2021-01-20 10:16:02+00:00,2021-01-21 14:13:45+00:00,3,Overload generator fan 1; Overload generator heating,False,gbm_fleet,False,,,0.07572992700729927,trailing
+gear bearing high temperature,6,2021-01-21 08:08:49+00:00,2021-01-21 08:39:04+00:00,1,High temp. gear bearing 1,False,rc,False,,,0.06478102189781022,trailing
+gear bearing high temperature,6,2021-01-21 08:08:49+00:00,2021-01-21 08:39:04+00:00,1,High temp. gear bearing 1,False,gbm,False,,,0.0,trailing
+gear bearing high temperature,6,2021-01-21 08:08:49+00:00,2021-01-21 08:39:04+00:00,1,High temp. gear bearing 1,False,fleet,False,,,0.0,trailing
+gear bearing high temperature,6,2021-01-21 08:08:49+00:00,2021-01-21 08:39:04+00:00,1,High temp. gear bearing 1,False,rc_fleet,False,,,0.05474452554744526,trailing
+gear bearing high temperature,6,2021-01-21 08:08:49+00:00,2021-01-21 08:39:04+00:00,1,High temp. gear bearing 1,False,gbm_fleet,False,,,0.05474452554744526,trailing
+generator cooling,6,2021-03-01 10:56:19+00:00,2021-03-05 11:31:41+00:00,1,Overload generator heating,False,rc,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-03-01 10:56:19+00:00,2021-03-05 11:31:41+00:00,1,Overload generator heating,False,gbm,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-03-01 10:56:19+00:00,2021-03-05 11:31:41+00:00,1,Overload generator heating,False,fleet,False,,,0.072992700729927,trailing
+generator cooling,6,2021-03-01 10:56:19+00:00,2021-03-05 11:31:41+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.06843065693430657,trailing
+generator cooling,6,2021-03-01 10:56:19+00:00,2021-03-05 11:31:41+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.07572992700729927,trailing
+generator cooling,1,2021-03-06 10:50:52+00:00,2021-03-06 16:57:56+00:00,1,Overload generator heating,False,rc,True,53.0,gen_bearing_rear,0.10948905109489052,trailing
+generator cooling,1,2021-03-06 10:50:52+00:00,2021-03-06 16:57:56+00:00,1,Overload generator heating,False,gbm,True,60.0,stator,0.16970802919708028,trailing
+generator cooling,1,2021-03-06 10:50:52+00:00,2021-03-06 16:57:56+00:00,1,Overload generator heating,False,fleet,True,49.0,gen_bearing_rear,0.21897810218978103,trailing
+generator cooling,1,2021-03-06 10:50:52+00:00,2021-03-06 16:57:56+00:00,1,Overload generator heating,False,rc_fleet,True,43.0,gen_bearing_rear,0.17883211678832117,trailing
+generator cooling,1,2021-03-06 10:50:52+00:00,2021-03-06 16:57:56+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,2,2021-03-08 08:43:21+00:00,2021-03-08 12:45:04+00:00,1,Overload generator heating,False,rc,False,,,0.0812043795620438,trailing
+generator cooling,2,2021-03-08 08:43:21+00:00,2021-03-08 12:45:04+00:00,1,Overload generator heating,False,gbm,True,55.0,gen_bearing_front,0.23357664233576642,trailing
+generator cooling,2,2021-03-08 08:43:21+00:00,2021-03-08 12:45:04+00:00,1,Overload generator heating,False,fleet,False,,,0.28832116788321166,trailing
+generator cooling,2,2021-03-08 08:43:21+00:00,2021-03-08 12:45:04+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.05474452554744526,trailing
+generator cooling,2,2021-03-08 08:43:21+00:00,2021-03-08 12:45:04+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+gear bearing high temperature,6,2021-03-27 05:18:50+00:00,2021-03-27 06:27:02+00:00,1,High temp. gear bearing 1,False,rc,False,,,0.06478102189781022,trailing
+gear bearing high temperature,6,2021-03-27 05:18:50+00:00,2021-03-27 06:27:02+00:00,1,High temp. gear bearing 1,False,gbm,False,,,0.0,trailing
+gear bearing high temperature,6,2021-03-27 05:18:50+00:00,2021-03-27 06:27:02+00:00,1,High temp. gear bearing 1,False,fleet,False,,,0.0,trailing
+gear bearing high temperature,6,2021-03-27 05:18:50+00:00,2021-03-27 06:27:02+00:00,1,High temp. gear bearing 1,False,rc_fleet,False,,,0.05474452554744526,trailing
+gear bearing high temperature,6,2021-03-27 05:18:50+00:00,2021-03-27 06:27:02+00:00,1,High temp. gear bearing 1,False,gbm_fleet,False,,,0.05474452554744526,trailing
+generator cooling,3,2021-04-10 08:06:47+00:00,2021-04-10 16:03:17+00:00,6,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,rc,False,,,0.05474452554744526,trailing
+generator cooling,3,2021-04-10 08:06:47+00:00,2021-04-10 16:03:17+00:00,6,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,gbm,False,,,0.05474452554744526,trailing
+generator cooling,3,2021-04-10 08:06:47+00:00,2021-04-10 16:03:17+00:00,6,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,fleet,False,,,0.0,trailing
+generator cooling,3,2021-04-10 08:06:47+00:00,2021-04-10 16:03:17+00:00,6,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,rc_fleet,False,,,0.12773722627737227,trailing
+generator cooling,3,2021-04-10 08:06:47+00:00,2021-04-10 16:03:17+00:00,6,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3,False,gbm_fleet,False,,,0.13686131386861314,trailing
+generator cooling,4,2021-05-15 06:55:24+00:00,2021-05-16 10:48:57+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc,False,,,0.19708029197080293,trailing
+generator cooling,4,2021-05-15 06:55:24+00:00,2021-05-16 10:48:57+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm,False,,,0.2791970802919708,trailing
+generator cooling,4,2021-05-15 06:55:24+00:00,2021-05-16 10:48:57+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,fleet,False,,,0.10948905109489052,trailing
+generator cooling,4,2021-05-15 06:55:24+00:00,2021-05-16 10:48:57+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,rc_fleet,False,,,0.25,trailing
+generator cooling,4,2021-05-15 06:55:24+00:00,2021-05-16 10:48:57+00:00,5,Overload generator fan 1; Overload generator fan 2; Overload generator fan 3; Overload generator heating,False,gbm_fleet,False,,,0.291970802919708,trailing
+generator cooling,3,2021-05-22 06:48:35+00:00,2021-05-22 10:55:02+00:00,2,Overload generator fan 1; Overload generator heating,False,rc,False,,,0.05474452554744526,trailing
+generator cooling,3,2021-05-22 06:48:35+00:00,2021-05-22 10:55:02+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm,False,,,0.05474452554744526,trailing
+generator cooling,3,2021-05-22 06:48:35+00:00,2021-05-22 10:55:02+00:00,2,Overload generator fan 1; Overload generator heating,False,fleet,False,,,0.0,trailing
+generator cooling,3,2021-05-22 06:48:35+00:00,2021-05-22 10:55:02+00:00,2,Overload generator fan 1; Overload generator heating,False,rc_fleet,False,,,0.12773722627737227,trailing
+generator cooling,3,2021-05-22 06:48:35+00:00,2021-05-22 10:55:02+00:00,2,Overload generator fan 1; Overload generator heating,False,gbm_fleet,False,,,0.13686131386861314,trailing
+generator cooling,5,2021-05-25 07:09:06+00:00,2021-05-25 11:14:34+00:00,1,Overload generator heating,False,rc,False,,,0.0812043795620438,trailing
+generator cooling,5,2021-05-25 07:09:06+00:00,2021-05-25 11:14:34+00:00,1,Overload generator heating,False,gbm,False,,,0.07572992700729927,trailing
+generator cooling,5,2021-05-25 07:09:06+00:00,2021-05-25 11:14:34+00:00,1,Overload generator heating,False,fleet,False,,,0.14324817518248176,trailing
+generator cooling,5,2021-05-25 07:09:06+00:00,2021-05-25 11:14:34+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.16058394160583941,trailing
+generator cooling,5,2021-05-25 07:09:06+00:00,2021-05-25 11:14:34+00:00,1,Overload generator heating,False,gbm_fleet,True,41.0,gen_bearing_rear,0.10948905109489052,trailing
+generator cooling,6,2021-05-27 06:40:45+00:00,2021-05-27 08:16:40+00:00,1,Overload generator fan 1,False,rc,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-05-27 06:40:45+00:00,2021-05-27 08:16:40+00:00,1,Overload generator fan 1,False,gbm,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-05-27 06:40:45+00:00,2021-05-27 08:16:40+00:00,1,Overload generator fan 1,False,fleet,False,,,0.072992700729927,trailing
+generator cooling,6,2021-05-27 06:40:45+00:00,2021-05-27 08:16:40+00:00,1,Overload generator fan 1,False,rc_fleet,False,,,0.06843065693430657,trailing
+generator cooling,6,2021-05-27 06:40:45+00:00,2021-05-27 08:16:40+00:00,1,Overload generator fan 1,False,gbm_fleet,False,,,0.07572992700729927,trailing
+generator cooling,6,2021-06-23 09:34:20+00:00,2021-06-23 11:23:16+00:00,1,Overload generator heating,False,rc,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-06-23 09:34:20+00:00,2021-06-23 11:23:16+00:00,1,Overload generator heating,False,gbm,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-06-23 09:34:20+00:00,2021-06-23 11:23:16+00:00,1,Overload generator heating,False,fleet,False,,,0.072992700729927,trailing
+generator cooling,6,2021-06-23 09:34:20+00:00,2021-06-23 11:23:16+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.06843065693430657,trailing
+generator cooling,6,2021-06-23 09:34:20+00:00,2021-06-23 11:23:16+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.07572992700729927,trailing
+generator cooling,1,2021-07-29 13:51:37+00:00,2021-07-29 13:51:48+00:00,1,Overload generator fan 1,False,rc,False,,,0.10948905109489052,trailing
+generator cooling,1,2021-07-29 13:51:37+00:00,2021-07-29 13:51:48+00:00,1,Overload generator fan 1,False,gbm,False,,,0.16970802919708028,trailing
+generator cooling,1,2021-07-29 13:51:37+00:00,2021-07-29 13:51:48+00:00,1,Overload generator fan 1,False,fleet,False,,,0.21897810218978103,trailing
+generator cooling,1,2021-07-29 13:51:37+00:00,2021-07-29 13:51:48+00:00,1,Overload generator fan 1,False,rc_fleet,False,,,0.17883211678832117,trailing
+generator cooling,1,2021-07-29 13:51:37+00:00,2021-07-29 13:51:48+00:00,1,Overload generator fan 1,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,1,2021-09-06 11:46:26+00:00,2021-09-06 13:22:35+00:00,1,Overload generator heating,True,rc,False,,,0.10948905109489052,trailing
+generator cooling,1,2021-09-06 11:46:26+00:00,2021-09-06 13:22:35+00:00,1,Overload generator heating,True,gbm,False,,,0.16970802919708028,trailing
+generator cooling,1,2021-09-06 11:46:26+00:00,2021-09-06 13:22:35+00:00,1,Overload generator heating,True,fleet,False,,,0.21897810218978103,trailing
+generator cooling,1,2021-09-06 11:46:26+00:00,2021-09-06 13:22:35+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.17883211678832117,trailing
+generator cooling,1,2021-09-06 11:46:26+00:00,2021-09-06 13:22:35+00:00,1,Overload generator heating,True,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,2,2021-09-08 09:18:22+00:00,2021-09-08 10:37:03+00:00,1,Overload generator heating,True,rc,False,,,0.0812043795620438,trailing
+generator cooling,2,2021-09-08 09:18:22+00:00,2021-09-08 10:37:03+00:00,1,Overload generator heating,True,gbm,False,,,0.23357664233576642,trailing
+generator cooling,2,2021-09-08 09:18:22+00:00,2021-09-08 10:37:03+00:00,1,Overload generator heating,True,fleet,False,,,0.28832116788321166,trailing
+generator cooling,2,2021-09-08 09:18:22+00:00,2021-09-08 10:37:03+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.05474452554744526,trailing
+generator cooling,2,2021-09-08 09:18:22+00:00,2021-09-08 10:37:03+00:00,1,Overload generator heating,True,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,3,2021-09-09 09:43:27+00:00,2021-09-09 10:45:37+00:00,1,Overload generator heating,True,rc,False,,,0.05474452554744526,trailing
+generator cooling,3,2021-09-09 09:43:27+00:00,2021-09-09 10:45:37+00:00,1,Overload generator heating,True,gbm,False,,,0.05474452554744526,trailing
+generator cooling,3,2021-09-09 09:43:27+00:00,2021-09-09 10:45:37+00:00,1,Overload generator heating,True,fleet,False,,,0.0,trailing
+generator cooling,3,2021-09-09 09:43:27+00:00,2021-09-09 10:45:37+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.12773722627737227,trailing
+generator cooling,3,2021-09-09 09:43:27+00:00,2021-09-09 10:45:37+00:00,1,Overload generator heating,True,gbm_fleet,True,57.0,gen_bearing_front,0.13686131386861314,trailing
+generator cooling,4,2021-09-10 09:28:31+00:00,2021-09-10 10:01:24+00:00,1,Overload generator heating,True,rc,False,,,0.19708029197080293,trailing
+generator cooling,4,2021-09-10 09:28:31+00:00,2021-09-10 10:01:24+00:00,1,Overload generator heating,True,gbm,False,,,0.2791970802919708,trailing
+generator cooling,4,2021-09-10 09:28:31+00:00,2021-09-10 10:01:24+00:00,1,Overload generator heating,True,fleet,False,,,0.10948905109489052,trailing
+generator cooling,4,2021-09-10 09:28:31+00:00,2021-09-10 10:01:24+00:00,1,Overload generator heating,True,rc_fleet,False,,,0.25,trailing
+generator cooling,4,2021-09-10 09:28:31+00:00,2021-09-10 10:01:24+00:00,1,Overload generator heating,True,gbm_fleet,False,,,0.291970802919708,trailing
+generator cooling,5,2021-09-16 09:50:06+00:00,2021-09-16 11:19:30+00:00,1,Overload generator heating,False,rc,False,,,0.0812043795620438,trailing
+generator cooling,5,2021-09-16 09:50:06+00:00,2021-09-16 11:19:30+00:00,1,Overload generator heating,False,gbm,False,,,0.07572992700729927,trailing
+generator cooling,5,2021-09-16 09:50:06+00:00,2021-09-16 11:19:30+00:00,1,Overload generator heating,False,fleet,False,,,0.14324817518248176,trailing
+generator cooling,5,2021-09-16 09:50:06+00:00,2021-09-16 11:19:30+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.16058394160583941,trailing
+generator cooling,5,2021-09-16 09:50:06+00:00,2021-09-16 11:19:30+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+generator cooling,6,2021-09-17 10:22:31+00:00,2021-09-17 12:08:24+00:00,1,Overload generator heating,False,rc,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-09-17 10:22:31+00:00,2021-09-17 12:08:24+00:00,1,Overload generator heating,False,gbm,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-09-17 10:22:31+00:00,2021-09-17 12:08:24+00:00,1,Overload generator heating,False,fleet,False,,,0.072992700729927,trailing
+generator cooling,6,2021-09-17 10:22:31+00:00,2021-09-17 12:08:24+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.06843065693430657,trailing
+generator cooling,6,2021-09-17 10:22:31+00:00,2021-09-17 12:08:24+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.07572992700729927,trailing
+generator cooling,4,2021-11-11 12:13:56+00:00,2021-11-11 12:23:41+00:00,1,Overload generator fan 1,False,rc,True,46.0,stator,0.19708029197080293,trailing
+generator cooling,4,2021-11-11 12:13:56+00:00,2021-11-11 12:23:41+00:00,1,Overload generator fan 1,False,gbm,True,38.0,stator,0.2791970802919708,trailing
+generator cooling,4,2021-11-11 12:13:56+00:00,2021-11-11 12:23:41+00:00,1,Overload generator fan 1,False,fleet,False,,,0.10948905109489052,trailing
+generator cooling,4,2021-11-11 12:13:56+00:00,2021-11-11 12:23:41+00:00,1,Overload generator fan 1,False,rc_fleet,True,46.0,stator,0.25,trailing
+generator cooling,4,2021-11-11 12:13:56+00:00,2021-11-11 12:23:41+00:00,1,Overload generator fan 1,False,gbm_fleet,True,36.0,stator,0.291970802919708,trailing
+generator cooling,6,2021-11-11 13:10:47+00:00,2021-11-11 13:25:39+00:00,1,Overload generator fan 1,False,rc,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-11-11 13:10:47+00:00,2021-11-11 13:25:39+00:00,1,Overload generator fan 1,False,gbm,False,,,0.06751824817518248,trailing
+generator cooling,6,2021-11-11 13:10:47+00:00,2021-11-11 13:25:39+00:00,1,Overload generator fan 1,False,fleet,False,,,0.072992700729927,trailing
+generator cooling,6,2021-11-11 13:10:47+00:00,2021-11-11 13:25:39+00:00,1,Overload generator fan 1,False,rc_fleet,False,,,0.06843065693430657,trailing
+generator cooling,6,2021-11-11 13:10:47+00:00,2021-11-11 13:25:39+00:00,1,Overload generator fan 1,False,gbm_fleet,False,,,0.07572992700729927,trailing
+generator cooling,5,2021-11-15 11:38:47+00:00,2021-11-16 13:45:04+00:00,1,Overload generator heating,False,rc,False,,,0.0812043795620438,trailing
+generator cooling,5,2021-11-15 11:38:47+00:00,2021-11-16 13:45:04+00:00,1,Overload generator heating,False,gbm,False,,,0.07572992700729927,trailing
+generator cooling,5,2021-11-15 11:38:47+00:00,2021-11-16 13:45:04+00:00,1,Overload generator heating,False,fleet,False,,,0.14324817518248176,trailing
+generator cooling,5,2021-11-15 11:38:47+00:00,2021-11-16 13:45:04+00:00,1,Overload generator heating,False,rc_fleet,False,,,0.16058394160583941,trailing
+generator cooling,5,2021-11-15 11:38:47+00:00,2021-11-16 13:45:04+00:00,1,Overload generator heating,False,gbm_fleet,False,,,0.10948905109489052,trailing
+gear bearing high temperature,6,2021-12-03 06:21:34+00:00,2021-12-03 06:42:18+00:00,1,High temp. gear bearing 1,False,rc,False,,,0.06478102189781022,trailing
+gear bearing high temperature,6,2021-12-03 06:21:34+00:00,2021-12-03 06:42:18+00:00,1,High temp. gear bearing 1,False,gbm,False,,,0.0,trailing
+gear bearing high temperature,6,2021-12-03 06:21:34+00:00,2021-12-03 06:42:18+00:00,1,High temp. gear bearing 1,False,fleet,False,,,0.0,trailing
+gear bearing high temperature,6,2021-12-03 06:21:34+00:00,2021-12-03 06:42:18+00:00,1,High temp. gear bearing 1,False,rc_fleet,False,,,0.05474452554744526,trailing
+gear bearing high temperature,6,2021-12-03 06:21:34+00:00,2021-12-03 06:42:18+00:00,1,High temp. gear bearing 1,False,gbm_fleet,False,,,0.05474452554744526,trailing
