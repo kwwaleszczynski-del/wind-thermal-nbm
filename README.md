@@ -21,8 +21,9 @@ oil and gear oil inlet, the two gearbox bearings, the two generator bearings, th
 Everything is validated without peeking: models are trained on year Y-2, alarm thresholds are set on Y-1 and all
 numbers are measured on Y = 2019, 2020 and 2021. Known faults (drifts, a cooling degradation, a step, a stuck
 sensor) are injected into the real test-year data, logged warnings from the turbines' status files are checked
-for early signs, and the same data answer a second question: **do the turbines limit their power when they run
-hot, and what does that cost?**
+for early signs, and the physical and the ML model are also run on the public **CARE to Compare** fault-detection
+benchmark (95 datasets from three other wind farms). The Kelmarsh data answer a second question as well: **do the
+turbines limit their power when they run hot, and what does that cost?**
 
 **Interactive dashboard:** thermal health map turbine x component x month, daily residuals and alarms per
 turbine - [kwwaleszczynski-del.github.io/wind-thermal-nbm](https://kwwaleszczynski-del.github.io/wind-thermal-nbm/).
@@ -74,6 +75,13 @@ median over channels. False alarms: all directions over the nine channels of a t
   on three of the four warning days the gradient-boosting residual jumps to 10-17 standard deviations, with
   nothing in the month before. The status logs contain no slowly developing drivetrain failure in the test years, which is
   why the injected faults carry the comparison.
+- **On the CARE to Compare benchmark the temperature models are precise but not general fault detectors.** On
+  95 labelled datasets from three other wind farms, using only the temperature channels, gradient boosting
+  reaches a CARE score of 0.49 and the RC model 0.47 (the benchmark paper reports 0.66 for its autoencoder on all
+  features and 0.5 for random predictions). Both are right on 99 % of the normal points but catch only 5 and 3 of
+  the 45 faults: 28 of those are in systems no temperature sensor watches (pitch, hydraulics, brakes, yaw,
+  communication, converter), and even the gearbox, bearing and transformer faults rarely show as a lasting
+  temperature rise before the failure.
 - **Thermal derating costs Kelmarsh almost nothing.** Below rated wind, the share of running time in which a
   single turbine pitches power away rises from 0.2-0.4 % at ambient temperatures below 20 °C to 2.4-3.9 % above
   25 °C, but hot weather comes with weak wind: in five years there was not one hour above 25 °C with wind at
@@ -260,6 +268,60 @@ Kelmarsh had no slowly developing drivetrain failure in the three test years, an
 
 ![T6 gear bearing 1 around its warnings](docs/img/event_t6_gear_bearing.png)
 
+## Validation 3: the CARE to Compare benchmark
+
+[CARE to Compare](https://doi.org/10.5281/zenodo.15846963) (Gück, Roelofs, Faulstich 2024) is a public
+benchmark for early fault detection: 95 datasets from three wind farms (A: 5 onshore turbines in Portugal from
+the EDP open data; B and C: offshore wind farms in Germany, anonymised), each one turbine with about a year of
+10-minute training data and a prediction section that holds either a labelled anomaly leading up to a fault
+(45 datasets) or normal behaviour (50). Its **CARE score** combines Coverage (point-wise F0.5 on the anomaly
+windows), Accuracy (on normal datasets, double weight), Reliability (event-wise F0.5; an event counts as
+detected when a criticality counter reaches 72, i.e. 12 hours of net anomalous points) and Earliness. It is
+computed here with an own implementation of the published definition, which reproduces the authors' reference
+code to four decimals on all 95 datasets.
+
+How the models were applied, all fixed before looking at any prediction section:
+
+- every component temperature of the farm is a channel (22 on A, 23 on B, 71 on C), with power, rotor speed and
+  the outside (and, on A, nacelle) temperature as inputs; gearbox bearings get the gear oil as cooling side;
+- per dataset, RC and gradient-boosting models are fitted on the first 75 % of the training section (normal
+  status only) and calibrated on the last 25 %;
+- the residual is smoothed with a 6-hour median (the data contain short sensor drop-outs to -50 °C), divided by
+  its calibration spread (at least 0.25 K), and the largest hot-side z over all channels is the anomaly score; a
+  point is anomalous above the 99.5 % quantile of the score on the calibration slice;
+- wind farm A's status labels come from the failure log and, as the dataset authors advise, are used only to
+  filter the training data; the fleet reference does not apply (one turbine per dataset).
+
+| Method | CARE score | Accuracy | Coverage | Reliability | Earliness | Faults detected | Normal datasets flagged |
+|---|---|---|---|---|---|---|---|
+| RC model | 0.47 | 0.994 | 0.08 | 0.23 | 0.05 | 3 of 45 | 2 of 50 |
+| Gradient boosting | 0.49 | 0.991 | 0.08 | 0.34 | 0.03 | 5 of 45 | 2 of 50 |
+
+With the threshold at the 99 % quantile both reach 0.52 (8 faults each), at 99.9 % 0.47 and 0.47. For
+orientation, the benchmark paper reports 0.66 for its autoencoder on all features and 0.5 for random predictions
+on an earlier version of the dataset. Per farm the RC model detects nothing on A and B, which the CARE rule
+scores as 0, and reaches 0.50 on C; gradient boosting scores 0.47, 0.52 and 0.48.
+
+The logged root causes explain most of it. 28 of the 45 faults are in systems that no temperature sensor
+watches (pitch drives and batteries, hydraulics, brakes, yaw, blades, communication, converter), and the
+temperature models detect 3 of them each. Of the 17 gearbox, bearing, generator, cooling and transformer faults
+gradient boosting detects 2 and the RC model none: a main bearing damage on wind farm B, flagged 35 days before
+the failure through the generator bearing temperature, and one "high temperature in transformer cell" event,
+flagged through the generator slip ring temperature rather than the transformer channels (the same channel also
+flags one normal dataset). The two other transformer-cell events, and the transformer, gearbox and generator
+bearing failures of wind farm A, are not detected. The clearest hit is a hydraulic fault on wind farm C
+(event 47): the RC model flags it 4 days before the failure through the hydraulic oil tank temperature, the same
+channel in which the dataset authors note "a longer anomaly". Overall the
+temperature models are what they were built to be: a precise thermal layer (99 % of normal points left alone,
+2 of 50 normal datasets flagged) rather than a general fault detector, and they need the other SCADA signals
+next to them to compete on this benchmark.
+
+![CARE to Compare scores](results/care/care_scores.png)
+
+*Derived from CARE to Compare (C. Gück, C. Roelofs, Fraunhofer IEE, doi:10.5281/zenodo.15846963), CC BY-SA 4.0.
+The figure and the tables in [results/care/](results/care/) are licensed CC BY-SA 4.0; see
+[results/care/LICENSE](results/care/LICENSE).*
+
 ## Physical health trend
 
 Because the RC parameters mean something, refitting the model on each calendar year turns them into a trend
@@ -311,8 +373,6 @@ record a single "Reduced power" warning in 2017-2021 (converter, 31 minutes, 0.1
 - **The RC element is linear.** Fans, heaters and thermostatic valves make the stator, generator bearings and
   gear oil piecewise systems; a physical model of the controllers would need their set points, which the export
   does not contain.
-- **No CARE to Compare benchmark.** The labelled fault benchmark of Gück et al. (2024, Zenodo 14006163,
-  CC BY-SA 4.0, 5.5 GB) would be the natural next test; it was not downloaded for this version.
 - The injected cooling fault scales the temperature rise above the nacelle air but keeps the measured dynamics,
   i.e. it does not lengthen the time constant as a real increase of R would.
 
@@ -323,7 +383,9 @@ python -m venv .venv
 .venv/Scripts/pip install -e ".[dev]"     # Linux/macOS: .venv/bin/pip
 python -m wind_thermal_nbm fetch            # ~1.8 GB from Zenodo into data/raw (or set KELMARSH_DATA_DIR)
 python -m wind_thermal_nbm all --jobs 3     # prepare, fit, evaluate, derating, report (~15-20 min)
-pytest -q                                   # 33 offline tests on synthetic data, ~10 s
+python -m wind_thermal_nbm fetch-care       # optional: CARE to Compare, 5.5 GB into data/care/raw (MD5-checked)
+python -m wind_thermal_nbm care --jobs 4    # RC and GBM on all 95 CARE datasets (~55 min), results/care/
+pytest -q                                   # 47 offline tests on synthetic data, ~20 s
 ```
 
 Stages can be run on their own (`prepare`, `fit`, `evaluate`, `derating`, `report`); each reuses the caches in
@@ -341,11 +403,27 @@ Stages can be run on their own (`prepare`, `fit`, `evaluate`, `derating`, `repor
 | `src/wind_thermal_nbm/validation.py` | baselines, false alarms, injection study, logged-event scoring |
 | `src/wind_thermal_nbm/derating.py` | power limitation and its energy cost |
 | `src/wind_thermal_nbm/report.py`, `dashboard.html` | figures and the dashboard |
-| `results/` | all tables behind the numbers above |
+| `src/wind_thermal_nbm/care.py`, `care_score.py` | the models on CARE to Compare, own implementation of the CARE score |
+| `results/` | all tables behind the numbers above (Kelmarsh, CC BY 4.0 data) |
+| `results/care/` | CARE to Compare results, CC BY-SA 4.0 (see its LICENSE) |
 
 ## Data and license
 
-Code: MIT. Data: Kelmarsh wind farm data, C. Plumley and R. Takeuchi, Cubico Sustainable Investments,
+Code: MIT.
+
+Data: Kelmarsh wind farm data, C. Plumley and R. Takeuchi, Cubico Sustainable Investments,
 [doi:10.5281/zenodo.16807551](https://doi.org/10.5281/zenodo.16807551), licensed
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The repository contains derived results only; the
-raw data are downloaded by `fetch` and are not redistributed.
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+Benchmark: CARE to Compare, "Wind Turbine SCADA Data For Early Fault Detection", C. Gück and C. Roelofs
+(Fraunhofer IEE), version of 9 July 2025, [doi:10.5281/zenodo.15846963](https://doi.org/10.5281/zenodo.15846963),
+described in C. Gück, C. M. A. Roelofs, S. Faulstich, *CARE to Compare: A Real-World Benchmark Dataset for Early
+Fault Detection in Wind Turbine Data*, Data 9(12), 138 (2024),
+[doi:10.3390/data9120138](https://doi.org/10.3390/data9120138); licensed
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Everything derived from it (tables and the
+figure in `results/care/`) is shared under CC BY-SA 4.0 as well, see [results/care/LICENSE](results/care/LICENSE).
+The CARE score is computed by an own implementation of the published definition, cross-checked against the
+authors' reference code ([EnergyFaultDetector](https://github.com/AEFDI/EnergyFaultDetector), MIT).
+
+The repository contains derived results only; raw data of either source are downloaded by `fetch` /
+`fetch-care` and are not redistributed.

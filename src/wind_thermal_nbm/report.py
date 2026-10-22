@@ -295,3 +295,40 @@ def report(raw_dir: Path, data_dir: Path, results_dir: Path, docs_dir: Path) -> 
     fig_rc_trend(pd.read_csv(results_dir / "rc_by_year.csv"), img / "rc_trend.png")
     dashboard(z, alarms, events, params, docs_dir / "index.html", Path(__file__).with_name("dashboard.html"))
 
+
+
+def fig_care(summary: pd.DataFrame, out: Path, quantile: float = 0.995) -> None:
+    """CARE score and its four parts per method (all farms), and the score per wind farm."""
+    _style()
+    s = summary[summary["quantile"] == quantile]
+    parts = ["care", "accuracy", "coverage", "reliability", "earliness"]
+    labels = ["CARE score", "Accuracy\n(normal events)", "Coverage\n(point F0.5)", "Reliability\n(event F0.5)",
+              "Earliness"]
+    methods = [m for m in ("rc", "gbm") if m in set(s["method"])]
+    fig, axes = plt.subplots(1, 2, figsize=(11, 3.9), gridspec_kw={"width_ratios": [5, 3]})
+    w = 0.36
+    for i, m in enumerate(methods):
+        row = s[(s.method == m) & (s.farm == "all")].iloc[0]
+        x = np.arange(len(parts)) + (i - (len(methods) - 1) / 2) * w
+        axes[0].bar(x, [row[p] for p in parts], width=w * 0.9, color=METHOD_COLORS[m], label=METHOD_LABELS[m])
+        for xi, p in zip(x, parts):
+            axes[0].text(xi, row[p] + 0.015, f"{row[p]:.2f}", ha="center", va="bottom", fontsize=8, color=INK2)
+        farms = s[(s.method == m) & (s.farm != "all")].sort_values("farm")
+        xf = np.arange(len(farms)) + (i - (len(methods) - 1) / 2) * w
+        axes[1].bar(xf, farms["care"], width=w * 0.9, color=METHOD_COLORS[m])
+        for xi, v in zip(xf, farms["care"]):
+            axes[1].text(xi, v + 0.015, f"{v:.2f}", ha="center", va="bottom", fontsize=8, color=INK2)
+        axes[1].set_xticks(np.arange(len(farms)), [f"Wind farm {f}" for f in farms["farm"]], fontsize=9)
+    axes[0].set_xticks(np.arange(len(parts)), labels, fontsize=9)
+    axes[0].set_ylim(0, 1.1)
+    axes[1].set_ylim(0, 1.1)
+    axes[0].legend(loc="upper right", fontsize=9)
+    axes[0].set_title("CARE to Compare, temperature channels only (95 datasets)", loc="left")
+    axes[1].set_title("CARE score per wind farm", loc="left")
+    for ax in axes:
+        ax.grid(axis="x", visible=False)
+    fig.text(0.01, 0.01, "Derived from CARE to Compare (Gück, Roelofs, Fraunhofer IEE; doi:10.5281/zenodo.15846963), "
+             "CC BY-SA 4.0. A score of 0 means no event detected (CARE rule).", fontsize=7, color=MUTED)
+    fig.tight_layout(rect=(0, 0.04, 1, 1))
+    fig.savefig(out, dpi=110)
+    plt.close(fig)
