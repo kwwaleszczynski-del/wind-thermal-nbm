@@ -172,9 +172,11 @@ def fig_event(z: pd.DataFrame, alarms: pd.DataFrame, events: pd.DataFrame, out: 
             if zz.index[0] <= e.start <= zz.index[-1]:
                 ax.axvline(e.start, color="#d03b3b", lw=1)
         ax.axhline(0, color=MUTED, lw=0.8)
-        ax.set_ylim(-8, 19)
         ax.set_ylabel("z")
         ax.set_title(f"{METHOD_LABELS[m]}", loc="left")
+    # shared y axis down to the deepest dip (one RC + fleet day fell below -8)
+    lo = float(np.nanmin(zz[[f"{m}|{component}|{turbine}" for m in ("rc_fleet", "gbm", "fleet")]].to_numpy()))
+    axes[0].set_ylim(min(-8.0, np.floor(lo) - 1), 19)
     fig.suptitle(f"Turbine {turbine}, {COMPONENT_LABELS[component]}: daily standardised residual (trailing "
                  "baseline); red lines = logged 'High temp. gear bearing' warnings", x=0.01, ha="left", fontsize=10,
                  color=INK)
