@@ -123,9 +123,11 @@ function drawHeat() {
     xgap: 1, ygap: 1, colorbar: {title: {text: "z", side: "right"}, thickness: 10, outlinewidth: 0,
     tickfont: {color: css("--ink2")}},
     hovertemplate: "%{y}<br>%{x}<br>mean z %{z:.2f}<extra></extra>"};
+  const narrow = window.innerWidth < 640;  // on a phone half-yearly month labels ran into each other
   const layout = Object.assign(baseLayout(), {
-    yaxis: {autorange: "reversed", tickfont: {size: 11}, showgrid: false, color: css("--ink2")},
-    xaxis: {showgrid: false, color: css("--ink2"), tickangle: 0, dtick: "M6", tickformat: "%b %Y"},
+    yaxis: {autorange: "reversed", tickfont: {size: narrow ? 9 : 11}, showgrid: false, color: css("--ink2")},
+    xaxis: {showgrid: false, color: css("--ink2"), tickangle: 0, dtick: narrow ? "M12" : "M6",
+            tickformat: narrow ? "%Y" : "%b %Y", tickfont: {size: narrow ? 10 : 12}},
     shapes: [1, 2, 3, 4, 5].map(k => ({type: "line", xref: "paper", x0: 0, x1: 1, yref: "y",
       y0: k * nComp - 0.5, y1: k * nComp - 0.5, line: {color: css("--surface"), width: 4}}))});
   Plotly.react("heat", [trace], layout, {displayModeBar: false, responsive: true});
