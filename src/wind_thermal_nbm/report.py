@@ -218,8 +218,8 @@ def fig_rc_trend(by_year: pd.DataFrame, out: Path, highlight=(5, 6)) -> None:
         ax.set_xticks(list(d.index), [str(y)[2:] for y in d.index])
     axes[0].set_ylabel("Rise at rated power [K]")
     axes[0].legend(fontsize=8, loc="upper left")
-    fig.suptitle("RC model fitted per calendar year: temperature rise above the cooling side at rated power",
-                 x=0.01, ha="left", fontsize=10, color=INK)
+    fig.suptitle("RC model per calendar year, cooling-side weights constrained: rise above the cooling side at "
+                 "rated power", x=0.01, ha="left", fontsize=10, color=INK)
     fig.tight_layout()
     fig.savefig(out, dpi=110)
     plt.close(fig)

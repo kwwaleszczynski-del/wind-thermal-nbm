@@ -3,7 +3,7 @@ import pandas as pd
 import pytest
 
 from conftest import synthetic_turbine
-from wind_thermal_nbm.thermal import RCModel, exp_filter, fill_short_gaps, segments, warmup_mask
+from wind_thermal_nbm.thermal import RCModel, exp_filter, fill_short_gaps, mixture_lstsq, segments, warmup_mask
 
 
 def test_exp_filter_starts_in_steady_state_and_converges():
@@ -62,6 +62,29 @@ def test_rc_result_independent_of_datetime_resolution():
     b = RCModel().fit(f_us, "comp")
     assert a.tau_h == pytest.approx(b.tau_h)
     np.testing.assert_allclose(a.predict(f_ns).to_numpy(), b.predict(f_us).to_numpy(), equal_nan=True)
+
+
+def test_mixture_lstsq_keeps_weights_on_the_simplex():
+    rng = np.random.default_rng(4)
+    n = 2000
+    a, b, c = rng.normal(20, 5, n), rng.normal(10, 5, n), rng.normal(15, 5, n)
+    load = rng.uniform(0, 2, n)
+    basis = np.column_stack([np.ones(n), a, b, c, load])
+    # outside the simplex the free fit would give a = 1.6, b = -0.6; the mixture fit must stay feasible
+    y = 1.6 * a - 0.6 * b + 3.0 * load + rng.normal(0, 0.1, n)
+    theta = mixture_lstsq(basis, y, [1, 2, 3])
+    assert (theta[1:4] >= -1e-9).all() and theta[1:4].sum() == pytest.approx(1.0)
+    inside = 0.2 * a + 0.5 * b + 0.3 * c + 3.0 * load + 1.0
+    np.testing.assert_allclose(mixture_lstsq(basis, inside, [1, 2, 3]), [1.0, 0.2, 0.5, 0.3, 3.0], atol=1e-8)
+
+
+def test_rc_mixture_recovers_known_parameters(turbine):
+    frame, truth = turbine
+    p = RCModel(mixture=True).fit(frame, "comp").params()
+    rise_true = truth["p_mw"] * 2.05 + truth["p_mw2"] * 2.05 ** 2
+    assert p["rise_rated_K"] == pytest.approx(rise_true, rel=0.05)
+    assert min(p["k_nacelle_temp"], p["k_ambient_temp"]) >= 0
+    assert p["k_nacelle_temp"] + p["k_ambient_temp"] == pytest.approx(1.0)
 
 
 def test_rc_refuses_too_little_data(turbine):

@@ -17,9 +17,13 @@ the steady state:
 
 The model is run as a pure simulation from the inputs (it never sees the measured temperature), so a fault in
 the measurement stays in the residual instead of being followed. For a given tau the simulated temperature is
-linear in theta, so the fit is a one-dimensional search over tau with ordinary least squares inside (variable
-projection). The parameters are physical: tau is the thermal inertia and the temperature rise at rated power
-and speed, R * Q_loss(rated), measures how well the component is cooled.
+linear in theta, so the fit is a one-dimensional search over tau with least squares inside (variable
+projection). tau is the thermal inertia and the temperature rise at rated power and speed, R * Q_loss(rated),
+measures how well the component is cooled - but only if the cooling-side weights theta_k form a mixture
+(theta_k >= 0, sum 1: the component sits at a weighted mean of the temperatures that cool it plus R * Q_loss).
+Left free, the nacelle temperature, which the drivetrain itself heats, takes over part of the load term (weights
+such as 2.1 and -1.1) and the rise drifts with the weights from year to year. The free fit predicts better and is
+used for detection; ``mixture=True`` constrains the weights and is used for the parameter trend.
 
 Usage:
     model = RCModel(refs=("nacelle_temp", "ambient_temp")).fit(frame, "transformer")
@@ -27,6 +31,7 @@ Usage:
 """
 from __future__ import annotations
 
+import itertools
 import logging
 from dataclasses import dataclass, field
 
@@ -73,6 +78,41 @@ def warmup_mask(valid: np.ndarray, n_warmup: int) -> np.ndarray:
     return out
 
 
+def mixture_lstsq(basis: np.ndarray, y: np.ndarray, mix: list[int]) -> np.ndarray:
+    """Least squares with the coefficients of the columns ``mix`` non-negative and summing to 1.
+
+    A convex quadratic over a simplex: its minimum is the unconstrained minimum on one face (a subset of
+    ``mix`` with the weights summing to 1) whose weights come out non-negative, so every face is solved and
+    the best feasible one kept. The faces are solved on the R factor of one QR decomposition.
+    """
+    q, r = np.linalg.qr(basis)
+    qy = q.T @ y
+    n = basis.shape[1]
+    free = [j for j in range(n) if j not in mix]
+    best, best_theta = np.inf, None
+    for size in range(1, len(mix) + 1):
+        for face in itertools.combinations(mix, size):
+            last, rest = face[-1], list(face[:-1])
+            t0 = np.zeros(n)
+            t0[last] = 1.0
+            cols = []
+            for j in free + rest:
+                c = np.zeros(n)
+                c[j] = 1.0
+                if j in rest:
+                    c[last] = -1.0
+                cols.append(c)
+            t = np.column_stack(cols)
+            z, *_ = np.linalg.lstsq(r @ t, qy - r @ t0, rcond=None)
+            theta = t0 + t @ z
+            if (theta[mix] < -1e-9).any():
+                continue
+            sse = float(np.sum((r @ theta - qy) ** 2))
+            if sse < best:
+                best, best_theta = sse, theta
+    return best_theta
+
+
 def fill_short_gaps(frame: pd.DataFrame, columns: list[str], limit: int) -> pd.DataFrame:
     """Linear interpolation over gaps of at most ``limit`` steps (input columns only)."""
     out = frame.copy()
@@ -93,6 +133,7 @@ class RCModel:
     tau_bounds_h: tuple[float, float] = (0.05, 12.0)
     warmup_h: float = 6.0
     gap_fill: int = 3
+    mixture: bool = False  # True: cooling-side weights >= 0 and summing to 1 (physical parameters)
     tau_h: float = float("nan")
     theta: np.ndarray = field(default_factory=lambda: np.array([]))
     rmse: float = float("nan")
@@ -129,10 +170,14 @@ class RCModel:
         if use.sum() < 500:
             raise ValueError(f"{target}: only {use.sum()} usable rows")
         xv = np.where(valid[:, None], x, 0.0)
+        mix = list(range(1, 1 + len(self.refs))) if self.mixture else []
 
         def solve(log_tau: float) -> tuple[float, np.ndarray]:
             basis = exp_filter(xv, valid, self._alpha(float(np.exp(log_tau))))[use]
-            theta, *_ = np.linalg.lstsq(basis, y[use], rcond=None)
+            if mix:
+                theta = mixture_lstsq(basis, y[use], mix)
+            else:
+                theta, *_ = np.linalg.lstsq(basis, y[use], rcond=None)
             return float(np.mean((basis @ theta - y[use]) ** 2)), theta
 
         lo, hi = np.log(self.tau_bounds_h)

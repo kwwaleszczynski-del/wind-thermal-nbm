@@ -8,8 +8,8 @@ drifts away from zero is the warning. This repository compares three ways to bui
 years of open 10-minute SCADA data from the **Kelmarsh wind farm** (UK, 6 x Senvion MM92, 2 MW):
 
 - **(a) a physical first-order thermal (RC) model** per turbine and component, the method developed here: seven
-  parameters with a physical meaning (time constant, temperature rise at rated power, coupling to the air or oil
-  that cools the component);
+  parameters (time constant, temperature rise at rated power, coupling to the air or oil that cools the
+  component), which keep a physical meaning when the cooling-side weights are constrained to a mixture;
 - **(b) gradient-boosted trees** on current and lagged operating conditions, the usual industrial NBM;
 - **(c) the fleet reference**: the component temperature against the median of the other producing turbines at
   the same moment, which removes the weather without modelling it;
@@ -65,10 +65,12 @@ median over channels. False alarms: all directions over the nine channels of a t
   most of them on the slow rotor bearing and the generator channels. A trailing baseline (median of days t-120
   to t-31) halves that at a cost of 0-4 points of detection (see the trade-off figure). The fleet reference is the
   most stable (4.4 per turbine-year).
-- **The RC parameters are a physical health trend that the black box does not give.** Refitted per calendar
-  year, the temperature rise of the rear generator bearing at rated power grows from 16.6 to 24.0 K on T6
-  (2017-2021) and from 11.8 to 20.3 K on T5, while the other four end at 15-17 K; T5 and T6 also lead the fleet
-  in stator temperature rise by 2021.
+- **With the cooling-side weights constrained, the RC parameters give a health trend that the black box does
+  not.** Refitted per calendar year with the weights held non-negative and summing to 1 (left free they drift:
+  on T5's rear generator bearing the nacelle-air weight went from 1.41 to 2.11 and the outside-air weight from
+  -0.44 to -1.06, and the rise moved with them), the temperature rise of the rear generator bearing at rated
+  power grows from 16.5 to 25.4 K on T6 (2017-2021) and from 11.6 to 21.5 K on T5, while the other four end at
+  15.2-16.8 K; T5 and T6 also lead the fleet in stator temperature rise in 2021.
 - **The logged warnings at Kelmarsh are not predictable from the temperatures - and do not need to be.** Of 42
   logged warning episodes on the monitored components (2019-2021), each method had an alarm in the 60 days
   before 2-4, about what chance gives (3.6-5.0). The four "High temp. gear bearing 1" warnings on T6 are acute:
@@ -163,8 +165,12 @@ Fitted parameters (median over turbines and training years 2017-2019):
 | Gen. bearing rear | nacelle + outside air | 1.1 h | 14 K | 1.9 K |
 | Gen. bearing front | nacelle + outside air | 0.4 h | 2 K | 2.1 K |
 
-The parameters read like a data sheet: the transformer follows the outside air (it is not in the nacelle air
-stream), the main bearing is the slowest mass, the gearbox bearings follow the oil within minutes. Where
+The time constants read like a data sheet: the transformer follows the outside air (it is not in the nacelle air
+stream), the main bearing is the slowest mass, the gearbox bearings follow the oil within minutes. These are the
+detection fits, whose cooling-side weights are left free because that predicts best; a weight above 1 or below 0
+(1.09 on the transformer; medians of 1.35-2.03 on the nacelle air with a negative outside-air weight for the gear
+oil, stator and generator bearings, `results/rc_params.csv`) means the nacelle temperature, which the drivetrain heats, also carries part of the load term, so the
+rise of a free fit is not a clean physical quantity. The yearly trend below constrains the weights. Where
 controllers act the RC element is a compromise: the gear oil is held at 50-60 °C by a thermostatic bypass and a
 cooler fan (it is *cooler* at full load than at part load), and the stator and generator bearings cycle with
 their fans. A clamped steady state for heater/thermostat floors and a second time constant were tried; neither
@@ -324,14 +330,24 @@ The figure and the tables in [results/care/](results/care/) are licensed CC BY-S
 
 ## Physical health trend
 
-Because the RC parameters mean something, refitting the model on each calendar year turns them into a trend
-per turbine. The temperature rise at rated power of the rear generator bearing grows from 16.6 to 24.0 K on T6
-and from 11.8 to 20.3 K on T5 between 2017 and 2021, against 13-17 K on the other four; both also lead the stator
-rise in 2021 (55.5 and 56.6 K vs 48-53 K). A higher rise at the same load means more heat per watt or less
-cooling - the signature of the cooling degradation injected above. T5 and T6 logged generator fan and heater
+Refitting the model on each calendar year turns its parameters into a trend per turbine, but only if the
+cooling-side weights cannot drift. Left free, they trade off against the load terms: on T5's rear generator
+bearing the nacelle-air weight rose from 1.41 to 2.11 and the outside-air weight fell from -0.44 to -1.06
+between 2017 and 2021, so a change of the rise could come from the weights as well as from the cooling. The trend
+fits therefore hold the weights non-negative and summing to 1 (the component sits at a mixture of the
+temperatures that cool it, plus the rise). The generator channels and the stator then sit on the nacelle air
+(weight 1) in every year, the transformer on the outside air, the gearbox bearings on the oil, so the rise is
+compared on the same footing from year to year. The price is a looser fit (median RMSE 2.25 instead of 1.91 K on
+the rear generator bearing, 4.10 instead of 2.70 K on the stator, 2017-2019), which is why the detection models
+keep their free weights.
+
+With that, the temperature rise at rated power of the rear generator bearing grows from 16.5 to 25.4 K on T6 and
+from 11.6 to 21.5 K on T5 between 2017 and 2021, while the other four end at 15.2-16.8 K; T5 and T6 also lead the
+stator rise in 2021 (57.7 and 59.3 K vs 47.9-50.8 K). A higher rise at the same load means more heat per watt or
+less cooling - the signature of the cooling degradation injected above. T5 and T6 logged generator fan and heater
 overloads in most years, as did the other turbines. The whole fleet's generator rise jumps in 2020, which a
-fleet-relative reading separates from the turbine-specific trend. The transformer and the gearbox bearings stay
-flat within ±1-2 K.
+fleet-relative reading separates from the turbine-specific trend. The transformer and the gearbox bearings move
+by at most 2 K per turbine over the five years (`results/rc_by_year.csv`).
 
 ![RC parameters per year](docs/img/rc_trend.png)
 
@@ -394,7 +410,7 @@ Stages can be run on their own (`prepare`, `fit`, `evaluate`, `derating`, `repor
 
 | Path | Content |
 |---|---|
-| `src/wind_thermal_nbm/thermal.py` | RC model: simulation, variable-projection fit, physical parameters |
+| `src/wind_thermal_nbm/thermal.py` | RC model: simulation, variable-projection fit (free or mixture-constrained cooling weights), parameters |
 | `src/wind_thermal_nbm/ml.py` | gradient-boosting NBM with lag features |
 | `src/wind_thermal_nbm/fleet.py` | fleet-median reference with load correction |
 | `src/wind_thermal_nbm/pipeline.py` | rolling train / calibrate / test protocol, residual cache, yearly RC fits |

@@ -110,14 +110,17 @@ def fit_and_save(test_year: int, raw_dir: Path, cache_dir: Path, out_dir: Path) 
 
 
 def rc_by_year(raw_dir: Path, cache_dir: Path, years=range(2017, 2022)) -> pd.DataFrame:
-    """RC parameters fitted separately on every calendar year: a physical health trend per channel."""
+    """RC parameters fitted separately on every calendar year: a physical health trend per channel.
+
+    The cooling-side weights are constrained to a mixture (>= 0, sum 1); left free they drift from year to year
+    and carry the temperature rise with them."""
     scada, _ = load(list(years), raw_dir, cache_dir)
     rows = []
     for y in years:
         frames = frames_for(scada, y)
         for comp in COMPONENTS.values():
             for t, f in frames.items():
-                p = RCModel(refs=COMPONENT_REFS[comp]).fit(f, comp).params()
+                p = RCModel(refs=COMPONENT_REFS[comp], mixture=True).fit(f, comp).params()
                 rows.append({"year": y, "component": comp, "turbine": t, **p})
         log.info("RC parameters fitted for %d", y)
     return pd.DataFrame(rows)
