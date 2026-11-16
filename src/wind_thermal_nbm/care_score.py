@@ -43,14 +43,13 @@ def fbeta(tp: float, fp: float, fn: float, beta: float = BETA) -> float:
 
 
 def criticality(anomaly: np.ndarray, normal: np.ndarray) -> np.ndarray:
-    """Counter that rises with predicted anomalies and falls with normal predictions, on normal-status points."""
-    step = np.where(normal & anomaly, 1, np.where(normal & ~anomaly, -1, 0))
-    out = np.empty(len(step), dtype=np.int64)
-    c = 0
-    for i, s in enumerate(step):
-        c = max(0, c + int(s))
-        out[i] = c
-    return out
+    """Counter that rises with predicted anomalies and falls with normal predictions, on normal-status points.
+
+    The counter is a walk reflected at zero, c_t = max(0, c_{t-1} + s_t), which equals the cumulative sum minus
+    its running minimum (taken with 0)."""
+    step = np.where(normal & anomaly, 1, np.where(normal & ~anomaly, -1, 0)).astype(np.int64)
+    walk = np.cumsum(step)
+    return walk - np.minimum(np.minimum.accumulate(walk), 0)
 
 
 def earliness_weights(n: int, descend_start: float = DESCEND_START) -> np.ndarray:

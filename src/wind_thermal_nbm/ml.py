@@ -48,7 +48,7 @@ class GBMModel:
     target: str = ""
     model: HistGradientBoostingRegressor | None = field(default=None, repr=False)
 
-    def fit(self, frame: pd.DataFrame, target: str, mask: np.ndarray | None = None) -> "GBMModel":
+    def fit(self, frame: pd.DataFrame, target: str, mask: np.ndarray | None = None) -> GBMModel:
         self.target = target
         x = features(frame, self.inputs)
         y = frame[target].to_numpy(dtype=float)

@@ -41,7 +41,7 @@ class FleetModel:
     target: str = ""
     coef: dict[int, np.ndarray] = field(default_factory=dict)
 
-    def fit(self, frames: dict[int, pd.DataFrame], target: str) -> "FleetModel":
+    def fit(self, frames: dict[int, pd.DataFrame], target: str) -> FleetModel:
         self.target = target
         d_temp, d_pow = _differences(frames, target)
         for t, f in frames.items():

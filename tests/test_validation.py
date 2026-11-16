@@ -107,3 +107,32 @@ def test_trailing_baseline_is_causal_and_forgets_old_level_shifts():
     d2 = d.copy()
     d2[400:] = 10.0
     np.testing.assert_allclose(validation.standardise_daily(d2, 0.0, 1.0, "trailing")[:400], z_trail[:400])
+
+
+def _injection_table(rates: dict[str, float], clusters: int = 40, onsets: int = 10, seed: int = 0) -> pd.DataFrame:
+    rng = np.random.default_rng(seed)
+    rows = []
+    for c in range(clusters):
+        for m, p in rates.items():
+            for o in range(onsets):
+                hit = rng.random() < p
+                rows.append({"test_year": 2020, "baseline": "trailing", "fault": "drift_2", "onset": o,
+                             "method": m, "component": f"c{c}", "turbine": 1, "chart": "cusum",
+                             "detected": hit, "days_to_detect": 10.0 if hit else np.nan, "valid_days": 60})
+    return pd.DataFrame(rows)
+
+
+def test_bootstrap_interval_covers_rate_and_reference_difference_is_zero():
+    ci = validation.bootstrap_detection(_injection_table({"rc": 0.6, "gbm": 0.9}), draws=500)
+    rc, gbm = ci[ci.method == "rc"].iloc[0], ci[ci.method == "gbm"].iloc[0]
+    assert rc.ci_low < rc.detected_pct < rc.ci_high
+    assert rc.diff_vs_rc_low == 0 and rc.diff_vs_rc_high == 0
+    assert gbm.diff_vs_rc_low > 0  # 30 points apart: clearly separated
+
+
+def test_censored_median_counts_misses_as_late():
+    inj = _injection_table({"rc": 0.6})
+    s = validation.summarise_injections(inj).iloc[0]
+    assert s.median_days == 10.0 and s.median_days_censored == 10.0  # more than half detected at day 10
+    few = validation.summarise_injections(_injection_table({"rc": 0.3})).iloc[0]
+    assert few.median_days == 10.0 and np.isnan(few.median_days_censored)  # most missed: no finite median

@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 import pytest
-
 from conftest import synthetic_turbine
+
 from wind_thermal_nbm.faults import inject, ramp
 from wind_thermal_nbm.fleet import FleetModel
 from wind_thermal_nbm.prep import median_of_others

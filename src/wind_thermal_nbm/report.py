@@ -14,14 +14,14 @@ import numpy as np
 import pandas as pd
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
+import matplotlib.pyplot as plt
 
-from .data import COMPONENTS, load  # noqa: E402
-from .faults import FAULTS  # noqa: E402
-from .ml import GBMModel  # noqa: E402
-from .pipeline import COMPONENT_REFS, METHODS, TEST_YEARS  # noqa: E402
-from .prep import turbine_frame, year_bounds  # noqa: E402
-from .thermal import RCModel  # noqa: E402
+from .data import COMPONENTS, load
+from .faults import FAULTS
+from .ml import GBMModel
+from .pipeline import COMPONENT_REFS, METHODS, TEST_YEARS
+from .prep import turbine_frame, year_bounds
+from .thermal import RCModel
 
 METHOD_LABELS = {"rc": "RC model", "gbm": "Gradient boosting", "fleet": "Fleet median",
                  "rc_fleet": "RC + fleet", "gbm_fleet": "GBM + fleet"}
@@ -94,7 +94,8 @@ def fig_residual_spread(spread: pd.DataFrame, out: Path) -> None:
 
 
 def fig_injections(summary: pd.DataFrame, out: Path) -> None:
-    """Detection rate (bars) and median days to detection (labels) per fault and method, CUSUM chart."""
+    """Detection rate (bars) and median days to detection (labels; misses count as later than the horizon) per
+    fault and method, CUSUM chart."""
     s = summary[(summary.chart == "cusum") & (summary.baseline == PRIMARY_BASELINE)]
     faults = list(FAULTS)
     fig, ax = plt.subplots(figsize=(10, 4.8))
@@ -105,7 +106,7 @@ def fig_injections(summary: pd.DataFrame, out: Path) -> None:
         d = s[s.method == m].set_index("fault").reindex(faults)
         xs = x + (i - (n - 1) / 2) * w
         ax.bar(xs, d.detected_pct, width=w * 0.88, color=METHOD_COLORS[m], label=METHOD_LABELS[m])
-        for xi, (pct, days) in zip(xs, zip(d.detected_pct, d.median_days)):
+        for xi, (pct, days) in zip(xs, zip(d.detected_pct, d.median_days_censored)):
             if np.isfinite(days) and pct >= 15:
                 ax.text(xi, pct + 1.5, f"{days:.0f}", ha="center", va="bottom", fontsize=7, color=INK2)
     chance = s[s.fault == "none_hot"].detected_pct.mean()
@@ -115,7 +116,7 @@ def fig_injections(summary: pd.DataFrame, out: Path) -> None:
     ax.set_xticks(x, [short[f] for f in faults], fontsize=9)
     ax.set_ylim(0, 112)
     ax.set_ylabel("Detected within 60 days [%]")
-    ax.set_title("Injected faults: detection rate (labels: median days to detection), CUSUM\n"
+    ax.set_title("Injected faults: detection rate (labels: median days to detection, misses censored), CUSUM\n"
                  f"grey line: chance of a hot-side alarm in the same windows without a fault ({chance:.0f} %)",
                  loc="left")
     ax.legend(ncols=5, loc="upper left", fontsize=9, bbox_to_anchor=(0, -0.12))
@@ -202,26 +203,30 @@ def fig_derating(by_ambient: pd.DataFrame, out: Path) -> None:
     plt.close(fig)
 
 
-def fig_rc_trend(by_year: pd.DataFrame, out: Path, highlight=(5, 6)) -> None:
-    """Rise at rated power per calendar year and turbine: the physical health trend of the RC model."""
+def fig_rc_trend(by_year: pd.DataFrame, out: Path, highlight: int = 5) -> None:
+    """Change of the rise at rated power since the first year: the RC fit with tau, intercept and cooling-side
+    mixture held at the first year (lines) against the measured rise at rated power (open markers)."""
     comps = ("gen_bearing_rear", "stator", "front_bearing", "transformer")
-    fig, axes = plt.subplots(1, len(comps), figsize=(11, 3.6), sharex=True)
-    colors = {highlight[0]: "#2a78d6", highlight[1]: "#eb6834"}
+    fig, axes = plt.subplots(1, len(comps), figsize=(11, 3.7), sharex=True, sharey=True)
     for ax, comp in zip(axes, comps):
-        d = by_year[by_year.component == comp].pivot(index="year", columns="turbine", values="rise_rated_K")
-        for t in d.columns:
-            if t in colors:
-                continue
-            ax.plot(d.index, d[t], color="#c3c2b7", lw=1.4, label="other turbines" if t == d.columns[0] else None)
-        for t in highlight:
-            ax.plot(d.index, d[t], color=colors[t], lw=2, marker="o", ms=5, mec="#fcfcfb", mew=1.5,
-                    label=f"T{t}")
+        sub = by_year[by_year.component == comp]
+        held = sub.pivot(index="year", columns="turbine", values="rise_rated_K")
+        meas = sub.pivot(index="year", columns="turbine", values="rise_measured_K")
+        held, meas = held - held.iloc[0], meas - meas.iloc[0]
+        for t in held.columns:
+            hot = t == highlight
+            color = "#2a78d6" if hot else "#c3c2b7"
+            ax.plot(held.index, held[t], color=color, lw=2 if hot else 1.3, zorder=3 if hot else 2,
+                    label=(f"T{t}, RC fit" if hot else "other turbines") if t in (highlight, held.columns[0]) else None)
+            ax.scatter(meas.index, meas[t], s=30 if hot else 14, facecolor="#fcfcfb", edgecolor=color, lw=1.4,
+                       zorder=4 if hot else 2, label=f"T{t}, measured" if hot else None)
+        ax.axhline(0, color=MUTED, lw=0.8)
         ax.set_title(COMPONENT_LABELS[comp], loc="left")
-        ax.set_xticks(list(d.index), [str(y)[2:] for y in d.index])
-    axes[0].set_ylabel("Rise at rated power [K]")
+        ax.set_xticks(list(held.index), [str(y)[2:] for y in held.index])
+    axes[0].set_ylabel(f"Rise at rated power, change since {by_year.year.min()} [K]")
     axes[0].legend(fontsize=8, loc="upper left")
-    fig.suptitle("RC model per calendar year, cooling-side weights constrained: rise above the cooling side at "
-                 "rated power", x=0.01, ha="left", fontsize=10, color=INK)
+    fig.suptitle(f"RC fit with tau, intercept and cooling-side mixture held at {by_year.year.min()} (lines) vs the "
+                 "measured rise at rated power (open markers)", x=0.01, ha="left", fontsize=10, color=INK)
     fig.tight_layout()
     fig.savefig(out, dpi=110)
     plt.close(fig)
@@ -249,7 +254,7 @@ def dashboard(z: pd.DataFrame, alarms: pd.DataFrame, events: pd.DataFrame, param
     a = alarms[alarms.chart == "cusum"]
     ch_index = {f"{t}|{c}": i for i, (t, c) in enumerate(channels)}
     day0 = z.index[0]
-    alarm_list = {m: [[ch_index[f"{r.turbine}|{r.component}"], int(round((r.day - day0) / pd.Timedelta(days=1))),
+    alarm_list = {m: [[ch_index[f"{r.turbine}|{r.component}"], round((r.day - day0) / pd.Timedelta(days=1)),
                        int(r.direction)] for r in a[a.method == m].itertuples()] for m in METHODS}
     ev = events.drop_duplicates(["group", "turbine", "start"])
     event_list = [{"turbine": int(r.turbine), "day": r.start.strftime("%Y-%m-%d"), "group": r.group,

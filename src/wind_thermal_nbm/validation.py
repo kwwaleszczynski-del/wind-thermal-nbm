@@ -103,8 +103,8 @@ def calibrate_year(residuals: pd.DataFrame, frames: dict[int, pd.DataFrame], tes
     """
     start = year_bounds(test_year - 1)[0]
     end = year_bounds(test_year)[1]
-    n_days = int(round((end - start) / pd.Timedelta(days=1)))
-    n_cal = int(round((year_bounds(test_year)[0] - start) / pd.Timedelta(days=1)))
+    n_days = round((end - start) / pd.Timedelta(days=1))
+    n_cal = round((year_bounds(test_year)[0] - start) / pd.Timedelta(days=1))
     days = day_codes(residuals.index, start)
     op = {t: operating(f.reindex(residuals.index)).to_numpy() for t, f in frames.items()}
     z, scale, daily = {}, {}, {}
@@ -188,7 +188,7 @@ def injection_study(cal: YearCalibration, frames: dict[int, pd.DataFrame], fault
         for fault in ("none", *faults):
             for onset in onsets:
                 delta = np.zeros(len(idx)) if fault == "none" else inject(fault, f[comp], f["nacelle_temp"], onset)
-                d0 = int(round((onset - cal.start) / pd.Timedelta(days=1)))
+                d0 = round((onset - cal.start) / pd.Timedelta(days=1))
                 for col in cols:
                     m = split_column(col)[0]
                     med, mad = cal.scale[col]
@@ -210,12 +210,46 @@ def injection_study(cal: YearCalibration, frames: dict[int, pd.DataFrame], fault
 
 
 def summarise_injections(inj: pd.DataFrame, min_valid_days: int = 30) -> pd.DataFrame:
-    """Detection rate, median days to detection and chance rate per (fault, method, chart)."""
+    """Detection rate and days to detection per (fault, method, chart).
+
+    ``median_days`` is the median over detected cases only; ``median_days_censored`` counts every miss as
+    detected after the horizon, so a method that misses more cannot look faster (NaN if fewer than half are
+    detected)."""
     inj = inj[inj.valid_days >= min_valid_days]
-    g = inj.groupby(["baseline", "fault", "method", "chart"])
+    keys = ["baseline", "fault", "method", "chart"]
+    g = inj.groupby(keys)
+    censored = inj.assign(days=inj["days_to_detect"].fillna(np.inf)).groupby(keys)["days"].median()
     out = pd.DataFrame({"n": g.size(), "detected_pct": 100 * g.detected.mean(),
-                        "median_days": g.days_to_detect.median()})
+                        "median_days": g.days_to_detect.median(),
+                        "median_days_censored": censored.replace(np.inf, np.nan)})
     return out.reset_index()
+
+
+def bootstrap_detection(inj: pd.DataFrame, draws: int = 2000, seed: int = 0, reference: str = "rc",
+                        min_valid_days: int = 30) -> pd.DataFrame:
+    """95 % intervals of the detection rate by a cluster bootstrap over channel-years (test year, component,
+    turbine): the ten onsets of one channel-year share the same residual and are resampled together, and every
+    method is evaluated on the same resampled clusters, which gives paired intervals of the difference to
+    ``reference``."""
+    inj = inj[inj.valid_days >= min_valid_days]
+    cluster = inj["test_year"].astype(str) + "|" + inj["component"] + "|" + inj["turbine"].astype(str)
+    rng = np.random.default_rng(seed)
+    rows = []
+    for (baseline, chart, fault), g in inj.groupby(["baseline", "chart", "fault"]):
+        hits = g.groupby([cluster[g.index], g["method"]]).detected.agg(["sum", "size"]).unstack("method")
+        k, n = hits["sum"].to_numpy(dtype=float), hits["size"].to_numpy(dtype=float)
+        methods = list(hits["sum"].columns)
+        pick = rng.integers(0, len(k), (draws, len(k)))
+        rate = 100 * k[pick].sum(axis=1) / n[pick].sum(axis=1)  # draws x methods
+        ref = rate[:, methods.index(reference)] if reference in methods else np.zeros(draws)
+        for j, m in enumerate(methods):
+            diff = rate[:, j] - ref
+            rows.append({"baseline": baseline, "chart": chart, "fault": fault, "method": m,
+                         "detected_pct": 100 * k[:, j].sum() / n[:, j].sum(),
+                         "ci_low": np.percentile(rate[:, j], 2.5), "ci_high": np.percentile(rate[:, j], 97.5),
+                         f"diff_vs_{reference}_low": np.percentile(diff, 2.5),
+                         f"diff_vs_{reference}_high": np.percentile(diff, 97.5)})
+    return pd.DataFrame(rows)
 
 
 # Logged Senvion status codes that point at a monitored component (Warning/Stop entries only).

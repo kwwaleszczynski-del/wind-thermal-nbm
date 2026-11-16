@@ -185,7 +185,7 @@ def fetch(years: list[int], raw_dir: Path) -> list[Path]:
         algo, _, digest = info["checksum"].partition(":")
         if algo == "md5" and h.hexdigest() != digest:
             tmp.unlink()
-            raise IOError(f"{key}: MD5 mismatch")
+            raise OSError(f"{key}: MD5 mismatch")
         tmp.replace(dest)
         out.append(dest)
     return out

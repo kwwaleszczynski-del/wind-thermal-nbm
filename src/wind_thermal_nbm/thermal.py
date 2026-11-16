@@ -23,7 +23,9 @@ measures how well the component is cooled - but only if the cooling-side weights
 (theta_k >= 0, sum 1: the component sits at a weighted mean of the temperatures that cool it plus R * Q_loss).
 Left free, the nacelle temperature, which the drivetrain itself heats, takes over part of the load term (weights
 such as 2.1 and -1.1) and the rise drifts with the weights from year to year. The free fit predicts better and is
-used for detection; ``mixture=True`` constrains the weights and is used for the parameter trend.
+used for detection; ``mixture=True`` constrains the weights. Even then a yearly refit lets the rise trade off
+against tau and the intercept, so the parameter trend fits one reference year and then only refits the loss terms
+of later years (:meth:`RCModel.refit_load`).
 
 Usage:
     model = RCModel(refs=("nacelle_temp", "ambient_temp")).fit(frame, "transformer")
@@ -33,7 +35,7 @@ from __future__ import annotations
 
 import itertools
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 import numpy as np
 import pandas as pd
@@ -149,7 +151,7 @@ class RCModel:
         return x, np.isfinite(x).all(axis=1)
 
     def _n_warmup(self) -> int:
-        return int(round(self.warmup_h * 60 / STEP_MIN))
+        return round(self.warmup_h * 60 / STEP_MIN)
 
     @staticmethod
     def _alpha(tau_h: float) -> float:
@@ -159,7 +161,7 @@ class RCModel:
         t_ss = np.where(valid[:, None], x, 0.0) @ theta
         return exp_filter(t_ss, valid, self._alpha(tau_h))
 
-    def fit(self, frame: pd.DataFrame, target: str, mask: np.ndarray | None = None) -> "RCModel":
+    def fit(self, frame: pd.DataFrame, target: str, mask: np.ndarray | None = None) -> RCModel:
         """Fit on one turbine's regular 10-minute frame; ``mask`` limits the rows scored."""
         self.target = target
         x, valid = self._inputs(frame)
@@ -188,6 +190,27 @@ class RCModel:
         mse, self.theta = solve(res.x)
         self.tau_h, self.rmse = float(np.exp(res.x)), float(np.sqrt(mse))
         return self
+
+    def refit_load(self, frame: pd.DataFrame, target: str | None = None,
+                   mask: np.ndarray | None = None) -> RCModel:
+        """A copy refitted on ``frame`` with tau, the intercept and the cooling-side weights held: only the loss
+        terms (P, P^2, speed) move. A yearly refit of all parameters lets the rise trade off against tau and the
+        intercept; holding them makes the rise comparable from one year to the next."""
+        target = target or self.target
+        x, valid = self._inputs(frame)
+        y = frame[target].to_numpy(dtype=float)
+        use = warmup_mask(valid, self._n_warmup()) & np.isfinite(y)
+        if mask is not None:
+            use &= mask
+        if use.sum() < 500:
+            raise ValueError(f"{target}: only {use.sum()} usable rows")
+        basis = exp_filter(np.where(valid[:, None], x, 0.0), valid, self._alpha(self.tau_h))[use]
+        n_fixed = len(self.theta) - len(LOSS_TERMS)
+        held = basis[:, :n_fixed] @ self.theta[:n_fixed]
+        loss, *_ = np.linalg.lstsq(basis[:, n_fixed:], y[use] - held, rcond=None)
+        out = replace(self, theta=np.concatenate([self.theta[:n_fixed], loss]), target=target)
+        out.rmse = float(np.sqrt(np.mean((basis @ out.theta - y[use]) ** 2)))
+        return out
 
     def predict(self, frame: pd.DataFrame) -> pd.Series:
         """Simulated temperature; NaN where inputs are missing and during the warm-up after each gap."""

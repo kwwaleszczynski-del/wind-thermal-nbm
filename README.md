@@ -18,12 +18,14 @@ plus the two combinations of a model with the fleet reference. Nine channels are
 oil and gear oil inlet, the two gearbox bearings, the two generator bearings, the stator winding, the rotor
 (main) bearing and the transformer.
 
-Everything is validated without peeking: models are trained on year Y-2, alarm thresholds are set on Y-1 and all
-numbers are measured on Y = 2019, 2020 and 2021. Known faults (drifts, a cooling degradation, a step, a stuck
-sensor) are injected into the real test-year data, logged warnings from the turbines' status files are checked
-for early signs, and the physical and the ML model are also run on the public **CARE to Compare** fault-detection
-benchmark (95 datasets from three other wind farms). The Kelmarsh data answer a second question as well: **do the
-turbines limit their power when they run hot, and what does that cost?**
+Models are trained on year Y-2, alarm thresholds are set on Y-1 and all numbers are measured on Y = 2019, 2020 and
+2021, so no model or threshold sees its test year. The alarm design itself (CUSUM k = 1, the trailing baseline,
+the ±5 clip, the 60-day horizon) was settled after looking at results on those years, so the numbers are somewhat
+optimistic; the fixed-baseline variant shown alongside is the design before that choice. Known faults (drifts, a
+cooling degradation, a step, a stuck sensor) are injected into the real test-year data, logged warnings from the
+turbines' status files are checked for early signs, and the physical and the ML model are also run on the public
+**CARE to Compare** fault-detection benchmark (95 datasets from three other wind farms). The Kelmarsh data answer
+a second question as well: **do the turbines limit their power when they run hot, and what does that cost?**
 
 **Interactive dashboard:** thermal health map turbine x component x month, daily residuals and alarms per
 turbine - [kwwaleszczynski-del.github.io/wind-thermal-nbm](https://kwwaleszczynski-del.github.io/wind-thermal-nbm/).
@@ -32,31 +34,38 @@ turbine - [kwwaleszczynski-del.github.io/wind-thermal-nbm](https://kwwaleszczyns
 
 8 100 injections per method (5 faults x 9 components x 6 turbines x 10 onsets x 3 test years; the 2 % of windows
 with less than 30 days of data are not scored), CUSUM chart on the daily residual with a trailing baseline (see
-[Alarms](#alarms)); detection = a hot-side alarm within 60 days of the fault onset. False alarms are counted on the unmodified test years.
+[Alarms](#alarms)); detection = a hot-side alarm within 60 days of the fault onset. False alarms are counted on
+the unmodified test years.
 
 | Method | Daily residual noise | Drift +2 °C | Drift +5 °C | Cooling R +25 % | Step +3 °C | Stuck sensor | False alarms per turbine-year (hot side) |
 |---|---|---|---|---|---|---|---|
-| (a) RC model | 0.78 K | 76 % (31 d) | 97 % (20 d) | 94 % (16 d) | 94 % (10 d) | 82 % (12 d) | 4.6 (3.4) |
-| (b) Gradient boosting | 0.39 K | 86 % (24 d) | 98 % (18 d) | 94 % (16 d) | 97 % (10 d) | 85 % (14 d) | 6.6 (3.5) |
-| (c) Fleet median | 0.76 K | 79 % (32 d) | 99 % (20 d) | 94 % (17 d) | 97 % (11 d) | 85 % (11 d) | **4.4 (2.2)** |
-| RC + fleet | 0.55 K | 87 % (26 d) | 99 % (17 d) | 94 % (14 d) | 97 % (9 d) | 86 % (13 d) | 5.3 (3.6) |
-| GBM + fleet | **0.35 K** | **91 % (21 d)** | 98 % (13 d) | 94 % (12 d) | 97 % (9 d) | 87 % (13 d) | 5.2 (3.1) |
+| (a) RC model | 0.78 K | 76 % [71-81] (35 d) | 97 % (20 d) | 94 % (17 d) | 94 % (10 d) | 82 % (15 d) | 4.6 (3.4) |
+| (b) Gradient boosting | 0.39 K | 86 % [82-90] (26 d) | 98 % (18 d) | 94 % (16 d) | 97 % (11 d) | 85 % (17 d) | 6.6 (3.5) |
+| (c) Fleet median | 0.76 K | 79 % [75-84] (35 d) | 99 % (21 d) | 94 % (18 d) | 97 % (11 d) | 85 % (14 d) | **4.4 (2.2)** |
+| RC + fleet | 0.55 K | 87 % [83-90] (28 d) | 99 % (17 d) | 94 % (15 d) | 97 % (9 d) | 86 % (15 d) | 5.3 (3.6) |
+| GBM + fleet | **0.35 K** | **91 % [87-94] (22 d)** | 98 % (14 d) | 94 % (12 d) | 97 % (9 d) | 87 % (16 d) | 5.2 (3.1) |
 
-Days in brackets: median time to detection. Chance of a hot-side alarm in the same 60-day windows without a
-fault: 2-3 %. Residual noise: robust standard deviation of the daily mean residual in the calibration years,
-median over channels. False alarms: all directions over the nine channels of a turbine, hot side in brackets.
+Square brackets: 95 % interval from a cluster bootstrap over the 162 channel-years (the ten onsets of one
+channel-year share its residual, so they are resampled together; `results/injection_ci.csv` has every fault).
+Days in brackets: median time to detection with the misses counted as later than 60 days (over detected cases
+only the medians are 0-4 days shorter). Chance of a hot-side alarm in the same 60-day windows without a fault:
+2-3 %. Residual noise: robust standard deviation of the daily mean residual in the calibration years, median
+over channels. False alarms: all directions over the nine channels of a turbine, hot side in brackets.
 
 - **There is no single winner, and the gaps are smaller than the residual noise suggests.** Gradient boosting
   halves the day-to-day noise of the RC model (0.39 vs 0.78 K), but its alarm thresholds have to be just as wide:
   what limits every method is not the daily noise but slow, weather-driven wander of the residual that lasts for
   weeks. Large faults (+5 °C, +3 °C steps, a 25 % cooling loss) are caught by all methods in 94-99 % of cases;
-  the +2 °C drift separates them (76-91 %).
-- **The physical model is competitive where the physics is simple** and loses where controllers dominate. With
-  the gear oil as the cooling side, the RC model of the two gearbox bearings has 0.2-0.65 K of noise, catches every
-  +2 °C drift and raises few false alarms on them (4 and 1 in three years on bearings 1 and 2, against 16 and 7
-  for gradient boosting). On the transformer it catches 92 % of +2 °C drifts (GBM 95 %). On the fan- and thermostat-controlled
-  channels (generator bearings, stator, gear oil) a single linear RC element cannot follow the control and
-  catches 41-74 % (GBM 54-100 %).
+  the +2 °C drift separates them (76-91 %), but only partly: gradient boosting beats the RC model by 7.5-14.3
+  points (paired 95 % interval) and so do both fleet combinations, while the fleet median and the RC model are
+  not distinguishable (-2.6 to +9.2 points). The yearly swing is as large as the gaps (RC 69 / 82 / 77 % in
+  2019 / 2020 / 2021, fleet median 86 / 82 / 69 %).
+- **The physical model is competitive where the physics is simple** and loses where controllers dominate. With the
+  gear oil as the cooling side, the RC model of the two gearbox bearings has 0.2-0.65 K of noise, catches every +2
+  °C drift and raises few false alarms on them (4 and 1 in three years on bearings 1 and 2, against 16 and 7 for
+  gradient boosting). On the transformer it catches 92 % of +2 °C drifts (GBM 95 %). On the fan- and
+  thermostat-controlled channels (generator bearings, stator, gear oil) a single linear RC element cannot follow
+  the control and catches 41-74 % (GBM 54-100 %).
 - **Referencing a model to the fleet is the most useful single step.** Subtracting the median residual of the
   other producing turbines cancels the model error the six identical turbines share: RC noise drops from 0.78
   to 0.55 K and its +2 °C detection rises from 76 to 87 %.
@@ -65,25 +74,29 @@ median over channels. False alarms: all directions over the nine channels of a t
   most of them on the slow rotor bearing and the generator channels. A trailing baseline (median of days t-120
   to t-31) halves that at a cost of 0-4 points of detection (see the trade-off figure). The fleet reference is the
   most stable (4.4 per turbine-year).
-- **With the cooling-side weights constrained, the RC parameters give a health trend that the black box does
-  not.** Refitted per calendar year with the weights held non-negative and summing to 1 (left free they drift:
-  on T5's rear generator bearing the nacelle-air weight went from 1.41 to 2.11 and the outside-air weight from
-  -0.44 to -1.06, and the rise moved with them), the temperature rise of the rear generator bearing at rated
-  power grows from 16.5 to 25.4 K on T6 (2017-2021) and from 11.6 to 21.5 K on T5, while the other four end at
-  15.2-16.8 K; T5 and T6 also lead the fleet in stator temperature rise in 2021.
+- **The RC parameters give a health trend only when the model is held still.** Refitting every parameter each year
+  lets the rise trade off against the time constant and the intercept: that version showed the rear generator
+  bearing's rise growing from 16.5 to 25.4 K on T6 and 11.6 to 21.5 K on T5, but only because tau jumped to 3.2
+  and 2.7 h in 2021 (0.9-1.9 h in 2018-2020); the measured temperature did not do that. Holding tau, the intercept
+  and the cooling-side mixture at the 2017 fit and refitting only the load terms, the yearly rise follows the
+  measured rise at rated power (median gap 0.1-0.6 K over all turbine-years on every channel but the transformer;
+  on the 2017-2021 change at most 1.1 K for the rear generator bearing, 1.6 K for the stator). The one
+  turbine-specific change is T5's rear generator bearing: +4.4 K over 2017-2021 (measured +4.3 K) against +0.4 to
+  +3.3 K on the others (measured +1.2 to +2.6 K), and in 2021 it runs only 0.2-1.3 K hotter above the nacelle air
+  than the other five.
 - **The logged warnings at Kelmarsh are not predictable from the temperatures - and do not need to be.** Of 42
-  logged warning episodes on the monitored components (2019-2021), each method had an alarm in the 60 days
-  before 2-4, about what chance gives (3.6-5.0). The four "High temp. gear bearing 1" warnings on T6 are acute:
-  on three of the four warning days the gradient-boosting residual jumps to 10-17 standard deviations, with
-  nothing in the month before. The status logs contain no slowly developing drivetrain failure in the test years, which is
-  why the injected faults carry the comparison.
-- **On the CARE to Compare benchmark the temperature models are precise but not general fault detectors.** On
-  95 labelled datasets from three other wind farms, using only the temperature channels, gradient boosting
-  reaches a CARE score of 0.49 and the RC model 0.47 (the benchmark paper reports 0.66 for its autoencoder on all
-  features and 0.5 for random predictions). Both are right on 99 % of the normal points but catch only 5 and 3 of
-  the 45 faults: 28 of those are in systems no temperature sensor watches (pitch, hydraulics, brakes, yaw,
-  communication, converter), and even the gearbox, bearing and transformer faults rarely show as a lasting
-  temperature rise before the failure.
+  logged warning episodes on the monitored components (2019-2021), each method had an alarm in the 60 days before
+  2-4, about what chance gives (3.6-5.0). The four "High temp. gear bearing 1" warnings on T6 are acute: on three
+  of the four warning days the gradient-boosting residual jumps to 10-17 standard deviations, with nothing in the
+  month before. The status logs contain no slowly developing drivetrain failure in the test years, which is why
+  the injected faults carry the comparison.
+- **On the CARE to Compare benchmark the temperature models detect nothing beyond chance.** On 95 labelled
+  datasets from three other wind farms, using only the temperature channels, gradient boosting reaches a CARE
+  score of 0.49 and the RC model 0.47 (the benchmark paper reports 0.66 for its autoencoder on all features and
+  0.5 for random predictions). They leave 99 % of the normal points alone, but the 5 and 3 faults they "detect"
+  out of 45 are what the same flags give when shifted to random places in each prediction section (5.2 and 4.0
+  on average), and they flag 2 of the 50 normal datasets too. 28 of the 45 faults are in systems no temperature
+  sensor watches (pitch, hydraulics, brakes, yaw, communication, converter).
 - **Thermal derating costs Kelmarsh almost nothing.** Below rated wind, the share of running time in which a
   single turbine pitches power away rises from 0.2-0.4 % at ambient temperatures below 20 °C to 2.4-3.9 % above
   25 °C, but hot weather comes with weak wind: in five years there was not one hour above 25 °C with wind at
@@ -95,7 +108,7 @@ median over channels. False alarms: all directions over the nine channels of a t
 ![false alarms vs detection](docs/img/tradeoff.png)
 
 *Each arrow goes from the fixed to the trailing baseline: false alarms halve, detection of the +2 °C drift
-drops by 1-4 points.*
+drops by 0-4 points.*
 
 ## Data
 
@@ -170,7 +183,8 @@ stream), the main bearing is the slowest mass, the gearbox bearings follow the o
 detection fits, whose cooling-side weights are left free because that predicts best; a weight above 1 or below 0
 (1.09 on the transformer; medians of 1.35-2.03 on the nacelle air with a negative outside-air weight for the gear
 oil, stator and generator bearings, `results/rc_params.csv`) means the nacelle temperature, which the drivetrain heats, also carries part of the load term, so the
-rise of a free fit is not a clean physical quantity. The yearly trend below constrains the weights. Where
+rise of a free fit is not a clean physical quantity. The yearly trend below constrains the weights and holds
+them, with tau and the intercept, at a reference year. Where
 controllers act the RC element is a compromise: the gear oil is held at 50-60 °C by a thermostatic bypass and a
 cooler fan (it is *cooler* at full load than at part load), and the stator and generator bearings cycle with
 their fans. A clamped steady state for heater/thermostat floors and a second time constant were tried; neither
@@ -211,7 +225,9 @@ k = 0.5 mostly accumulated the weeks-long wander of the residual) and an **EWMA*
 are set per method, component and chart on the calibration year: the smallest value at which none of the six
 turbines alarms. Both charts reset after an alarm. All results above are CUSUM; the EWMA detects 6-14 points
 less of the +2 °C drifts but alarms earlier, with similar false alarm rates
-([results/injection_summary.csv](results/injection_summary.csv)).
+([results/injection_summary.csv](results/injection_summary.csv)). The trailing baseline, k = 1 and the clip were
+chosen after the fixed baseline had given 7-13 false alarms per turbine-year on the test years, i.e. with the
+test years in view; a clean protocol would settle them on a year outside 2019-2021.
 
 ## Validation 1: injected faults
 
@@ -286,7 +302,9 @@ detected when a criticality counter reaches 72, i.e. 12 hours of net anomalous p
 computed here with an own implementation of the published definition, which reproduces the authors' reference
 code to four decimals on all 95 datasets.
 
-How the models were applied, all fixed before looking at any prediction section:
+How the models were applied (settled before the full run; while debugging, the prediction sections of two
+datasets, B 34 and A 0, were looked at, which led to the median smoothing, the hot-side score and the 0.25 K
+floor):
 
 - every component temperature of the farm is a channel (22 on A, 23 on B, 71 on C), with power, rotor speed and
   the outside (and, on A, nacelle) temperature as inputs; gearbox bearings get the gear oil as cooling side;
@@ -298,29 +316,38 @@ How the models were applied, all fixed before looking at any prediction section:
 - wind farm A's status labels come from the failure log and, as the dataset authors advise, are used only to
   filter the training data; the fleet reference does not apply (one turbine per dataset).
 
-| Method | CARE score | Accuracy | Coverage | Reliability | Earliness | Faults detected | Normal datasets flagged |
-|---|---|---|---|---|---|---|---|
-| RC model | 0.47 | 0.994 | 0.08 | 0.23 | 0.05 | 3 of 45 | 2 of 50 |
-| Gradient boosting | 0.49 | 0.991 | 0.08 | 0.34 | 0.03 | 5 of 45 | 2 of 50 |
+| Method | CARE score | Accuracy | Coverage | Reliability | Earliness | Faults detected | Placebo: mean (5-95 %) | Normal datasets flagged | Fisher p |
+|---|---|---|---|---|---|---|---|---|---|
+| RC model | 0.47 | 0.994 | 0.08 | 0.23 | 0.05 | 3 of 45 | 4.0 (3-4) | 2 of 50 | 0.45 |
+| Gradient boosting | 0.49 | 0.991 | 0.08 | 0.34 | 0.03 | 5 of 45 | 5.2 (4-6) | 2 of 50 | 0.18 |
 
 With the threshold at the 99 % quantile both reach 0.52 (8 faults each), at 99.9 % 0.47 and 0.47. For
 orientation, the benchmark paper reports 0.66 for its autoencoder on all features and 0.5 for random predictions
 on an earlier version of the dataset. Per farm the RC model detects nothing on A and B, which the CARE rule
 scores as 0, and reaches 0.50 on C; gradient boosting scores 0.47, 0.52 and 0.48.
 
-The logged root causes explain most of it. 28 of the 45 faults are in systems that no temperature sensor
-watches (pitch drives and batteries, hydraulics, brakes, yaw, blades, communication, converter), and the
-temperature models detect 3 of them each. Of the 17 gearbox, bearing, generator, cooling and transformer faults
-gradient boosting detects 2 and the RC model none: a main bearing damage on wind farm B, flagged 35 days before
-the failure through the generator bearing temperature, and one "high temperature in transformer cell" event,
-flagged through the generator slip ring temperature rather than the transformer channels (the same channel also
-flags one normal dataset). The two other transformer-cell events, and the transformer, gearbox and generator
-bearing failures of wind farm A, are not detected. The clearest hit is a hydraulic fault on wind farm C
-(event 47): the RC model flags it 4 days before the failure through the hydraulic oil tank temperature, the same
-channel in which the dataset authors note "a longer anomaly". Overall the
-temperature models are what they were built to be: a precise thermal layer (99 % of normal points left alone,
-2 of 50 normal datasets flagged) rather than a general fault detector, and they need the other SCADA signals
-next to them to compete on this benchmark.
+**The detections are at chance level.** The placebo shifts each dataset's point predictions circularly by a
+random offset within its prediction section: the number of flagged points and how they cluster stay, any link to
+the event window goes. Over 200 such draws the RC model "detects" 4.0 of the 45 faults on average (5-95 %: 3-4)
+and gradient boosting 5.2 (4-6), as many as with the real alignment (3 and 5); at the 99 % threshold it is 8.7
+and 7.9 against 8 and 8 (`results/care/care_placebo.csv`). A one-sided Fisher test of detected fault datasets
+against flagged normal ones gives p = 0.45 and 0.18, and the flags are not denser inside the anomaly windows
+than outside them in the same datasets (RC 6.4 % vs 7.4 %, gradient boosting 4.2 % vs 2.7 % of the
+normal-status points). The reason is the scoring rule as much as the models: the anomaly windows cover 72 % of
+the scored prediction sections on average, and an event counts as detected when 12 net hours of flags occur
+anywhere before the fault, so a model that flags a few per cent of points at random collects "detections".
+None of the individual hits is therefore read as an early warning here.
+
+The logged root causes explain why little more could be expected: 28 of the 45 faults are in systems that no
+temperature sensor watches (pitch drives and batteries, hydraulics, brakes, yaw, blades, communication,
+converter), and of the 17 gearbox, bearing, generator, cooling and transformer faults gradient boosting flags 2
+and the RC model none. Two details of the evaluation: a quarter of the prediction points have no score (the
+turbine is not producing) and count as predicted normal, as in the authors' reference implementation; on scored
+points only, the accuracy on normal datasets is 0.993 (RC) and 0.989 (gradient boosting). The CARE temperatures
+are in °C (the dataset only rescales power-related signals), so the 0.25 K floor is in real units, and the
+rescale of power to a 2 MW range is a linear change of variable that both models absorb. Overall the
+temperature models do not provide early fault detection on this benchmark; they would need the other SCADA
+signals next to them.
 
 ![CARE to Compare scores](results/care/care_scores.png)
 
@@ -330,24 +357,31 @@ The figure and the tables in [results/care/](results/care/) are licensed CC BY-S
 
 ## Physical health trend
 
-Refitting the model on each calendar year turns its parameters into a trend per turbine, but only if the
-cooling-side weights cannot drift. Left free, they trade off against the load terms: on T5's rear generator
-bearing the nacelle-air weight rose from 1.41 to 2.11 and the outside-air weight fell from -0.44 to -1.06
-between 2017 and 2021, so a change of the rise could come from the weights as well as from the cooling. The trend
-fits therefore hold the weights non-negative and summing to 1 (the component sits at a mixture of the
-temperatures that cool it, plus the rise). The generator channels and the stator then sit on the nacelle air
-(weight 1) in every year, the transformer on the outside air, the gearbox bearings on the oil, so the rise is
-compared on the same footing from year to year. The price is a looser fit (median RMSE 2.25 instead of 1.91 K on
-the rear generator bearing, 4.10 instead of 2.70 K on the stator, 2017-2019), which is why the detection models
-keep their free weights.
+Refitting the model on each calendar year could turn its parameters into a trend per turbine, but a free yearly
+refit does not measure the cooling. The cooling-side weights trade off against the load terms (left free, T5's
+rear generator bearing moved from a nacelle-air weight of 1.41 and an outside-air weight of -0.44 in 2017 to 2.11
+and -1.06 in 2021), and even with the weights held to a mixture (non-negative, summing to 1) the rise trades off
+against tau and the intercept: refitted every year, the rise of the rear generator bearing at rated power went
+from 16.5 to 25.4 K on T6 and from 11.6 to 21.5 K on T5, but tau jumped to 3.2 h and 2.7 h in 2021 at the same
+time (0.9-1.9 h in 2018-2020), and the measured temperatures show nothing of the kind (`rise_free_K` and
+`tau_free_h` in `results/rc_by_year.csv`).
 
-With that, the temperature rise at rated power of the rear generator bearing grows from 16.5 to 25.4 K on T6 and
-from 11.6 to 21.5 K on T5 between 2017 and 2021, while the other four end at 15.2-16.8 K; T5 and T6 also lead the
-stator rise in 2021 (57.7 and 59.3 K vs 47.9-50.8 K). A higher rise at the same load means more heat per watt or
-less cooling - the signature of the cooling degradation injected above. T5 and T6 logged generator fan and heater
-overloads in most years, as did the other turbines. The whole fleet's generator rise jumps in 2020, which a
-fleet-relative reading separates from the turbine-specific trend. The transformer and the gearbox bearings move
-by at most 2 K per turbine over the five years (`results/rc_by_year.csv`).
+The trend is therefore fitted with the model held still: tau, the intercept and the cooling-side mixture come from
+the 2017 fit of each turbine and channel, and every year only the load terms (P, P², speed) are refitted. As a
+model-free check, the measured rise is the median of the temperature minus that held intercept and mixture over
+all rows at rated power (above 1.9 MW). The two agree on the change from 2017 to 2021 to within 1.1 K on the rear
+generator bearing, gearbox bearing 1 and the gear oil and 1.6 K on the stator (correlation over the six turbines
+0.85-0.89); over all turbine-years the median gap is 0.1-0.6 K on every channel except the transformer, the
+largest single one 2.3 K (gear oil, T6, 2018). The transformer is the exception: the held fit stays flat while the
+measured rise grows by 2.4-4.5 K on all six turbines alike, a fleet-wide change that does not single out a turbine
+either.
+
+On that footing the one turbine-specific change is T5's rear generator bearing: +4.4 K at rated power between
+2017 and 2021 (measured +4.3 K), against +0.4 to +3.3 K on the other five (measured +1.2 to +2.6 K), and T5's
+stator follows with +2.5 K (measured +3.3 K, others +0.3 to +2.6 K). In absolute terms T5's bearing is not an
+outlier: in 2021 its temperature above the nacelle air at rated power is 27.8 K against 26.5-27.6 K on the other
+five. A modest change worth watching, not a fault. T6, which the free refit had singled out, changes by +3.2 K
+(measured +2.1 K) and its stator by 0.3 K.
 
 ![RC parameters per year](docs/img/rc_trend.png)
 
@@ -389,6 +423,12 @@ record a single "Reduced power" warning in 2017-2021 (converter, 31 minutes, 0.1
 - **The RC element is linear.** Fans, heaters and thermostatic valves make the stator, generator bearings and
   gear oil piecewise systems; a physical model of the controllers would need their set points, which the export
   does not contain.
+- **The alarm design was chosen with the test years in view.** Training, calibration and test years never mix,
+  but the trailing baseline, k = 1, the ±5 clip and the 60-day horizon were settled after seeing results on
+  2019-2021, so the detection and false-alarm numbers are somewhat optimistic.
+- **Gearbox-bearing models take the measured gear oil as input.** A fault that heats oil and bearings together
+  (a failing oil cooler, low oil level) moves both and largely cancels in the bearing residual; it has to show
+  in the gear oil channel itself.
 - The injected cooling fault scales the temperature rise above the nacelle air but keeps the measured dynamics,
   i.e. it does not lengthen the time constant as a real increase of R would.
 
@@ -401,7 +441,7 @@ python -m wind_thermal_nbm fetch            # ~1.8 GB from Zenodo into data/raw 
 python -m wind_thermal_nbm all --jobs 3     # prepare, fit, evaluate, derating, report (~15-20 min)
 python -m wind_thermal_nbm fetch-care       # optional: CARE to Compare, 5.5 GB into data/care/raw (MD5-checked)
 python -m wind_thermal_nbm care --jobs 4    # RC and GBM on all 95 CARE datasets (~55 min), results/care/
-pytest -q                                   # 47 offline tests on synthetic data, ~20 s
+pytest -q                                   # 53 offline tests on synthetic data, ~2 min
 ```
 
 Stages can be run on their own (`prepare`, `fit`, `evaluate`, `derating`, `report`); each reuses the caches in

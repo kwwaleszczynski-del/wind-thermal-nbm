@@ -20,6 +20,8 @@ import logging
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
+import pandas as pd
+
 from . import data, pipeline
 
 YEARS = list(range(2016, 2022))
@@ -98,6 +100,7 @@ def cmd_care(args) -> None:
         events=("detected", "size"), detected=("detected", "sum"), coverage=("coverage", "mean"),
         earliness=("earliness", "mean"))
     by_family.reset_index().to_csv(out / "care_by_family.csv", index=False)
+    pd.concat([care.placebo(scores, q) for q in care.QUANTILES]).to_csv(out / "care_placebo.csv", index=False)
     fig_care(summary, out / "care_scores.png")
     log.info("CARE scores:\n%s", summary[summary["farm"] == "all"].round(3).to_string())
 

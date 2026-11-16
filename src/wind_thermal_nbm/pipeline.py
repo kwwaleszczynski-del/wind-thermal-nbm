@@ -109,18 +109,38 @@ def fit_and_save(test_year: int, raw_dir: Path, cache_dir: Path, out_dir: Path) 
     return test_year
 
 
-def rc_by_year(raw_dir: Path, cache_dir: Path, years=range(2017, 2022)) -> pd.DataFrame:
-    """RC parameters fitted separately on every calendar year: a physical health trend per channel.
+RATED_BIN_KW = 1900.0  # rows at or near rated power for the measured rise
 
-    The cooling-side weights are constrained to a mixture (>= 0, sum 1); left free they drift from year to year
-    and carry the temperature rise with them."""
+
+def measured_rise(frame: pd.DataFrame, model: RCModel) -> float:
+    """Median of the measured temperature minus the model's held intercept and cooling-side mixture over rows
+    at rated power: the same quantity as the model's rise at rated power, without the model's load terms."""
+    t = dict(zip(model.features, model.theta))
+    cool = t["const"] + sum(t[r] * frame[r] for r in model.refs)
+    rated = frame["power_kw"] > RATED_BIN_KW
+    return float((frame[model.target] - cool)[rated].median())
+
+
+def rc_by_year(raw_dir: Path, cache_dir: Path, years=range(2017, 2022)) -> pd.DataFrame:
+    """Temperature rise at rated power per calendar year, turbine and channel: a physical health trend.
+
+    The first year fixes tau, the intercept and the cooling-side mixture (weights >= 0, sum 1); every year then
+    refits only the loss terms. Refitting everything each year lets the rise trade off against tau and the
+    intercept (on the rear generator bearing tau jumped to 2.7 and 3.2 h on T5 and T6 in 2021, from 0.9-1.9 h in
+    2018-2020, and the rise followed it); that free fit is kept in the ``*_free`` columns for comparison. ``rise_measured_K`` is the
+    model-free check."""
     scada, _ = load(list(years), raw_dir, cache_dir)
+    frames = {y: frames_for(scada, y) for y in years}
     rows = []
-    for y in years:
-        frames = frames_for(scada, y)
-        for comp in COMPONENTS.values():
-            for t, f in frames.items():
-                p = RCModel(refs=COMPONENT_REFS[comp], mixture=True).fit(f, comp).params()
-                rows.append({"year": y, "component": comp, "turbine": t, **p})
-        log.info("RC parameters fitted for %d", y)
+    for comp in COMPONENTS.values():
+        for t in TURBINES:
+            ref = RCModel(refs=COMPONENT_REFS[comp], mixture=True).fit(frames[years[0]][t], comp)
+            for y in years:
+                f = frames[y][t]
+                free = RCModel(refs=COMPONENT_REFS[comp], mixture=True).fit(f, comp).params()
+                held = ref.refit_load(f, comp)
+                rows.append({"year": y, "component": comp, "turbine": t, **held.params(),
+                             "rise_measured_K": measured_rise(f, held),
+                             "rise_free_K": free["rise_rated_K"], "tau_free_h": free["tau_h"]})
+        log.info("RC trend fitted for %s", comp)
     return pd.DataFrame(rows)

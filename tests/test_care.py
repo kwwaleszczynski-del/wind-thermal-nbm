@@ -3,8 +3,8 @@ import zipfile
 import numpy as np
 import pandas as pd
 import pytest
-
 from conftest import synthetic_turbine
+
 from wind_thermal_nbm import care
 
 FEATURES = """sensor_name;statistics_type;description;unit;is_angle;is_counter
@@ -96,3 +96,17 @@ def test_fault_family_from_logged_root_cause():
     assert care.fault_family("Hydraulic group") == "other"
     assert care.fault_family("Pitch failure - defect fan on pitch motor") == "other"
     assert care.fault_family(float("nan")) == ""
+
+
+def test_shift_placebo_breaks_alignment_with_the_event_window():
+    n = 1000
+    window = np.zeros(n, bool)
+    window[400:500] = True  # the fault starts at step 500
+    flag = np.zeros(n, bool)
+    flag[410:490] = True  # 80 flagged steps, all inside the window
+    normal = np.ones(n, bool)
+    assert care.detected_after_shifts(flag, normal, window, np.array([0]))[0]
+    shifted = care.detected_after_shifts(flag, normal, window, np.arange(1, n))
+    # a shifted block still counts whenever 72 of its steps land before the event end, inside the window or
+    # not; it is lost when moved past the fault
+    assert 0.4 < shifted.mean() < 0.6

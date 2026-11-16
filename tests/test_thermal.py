@@ -1,9 +1,16 @@
 import numpy as np
 import pandas as pd
 import pytest
-
 from conftest import synthetic_turbine
-from wind_thermal_nbm.thermal import RCModel, exp_filter, fill_short_gaps, mixture_lstsq, segments, warmup_mask
+
+from wind_thermal_nbm.thermal import (
+    RCModel,
+    exp_filter,
+    fill_short_gaps,
+    mixture_lstsq,
+    segments,
+    warmup_mask,
+)
 
 
 def test_exp_filter_starts_in_steady_state_and_converges():
@@ -91,3 +98,14 @@ def test_rc_refuses_too_little_data(turbine):
     frame, _ = turbine
     with pytest.raises(ValueError):
         RCModel().fit(frame.iloc[:200], "comp")
+
+
+def test_refit_load_holds_tau_and_cooling_side_and_tracks_a_load_change():
+    frame, _ = synthetic_turbine(days=40, seed=7)
+    ref = RCModel(mixture=True).fit(frame, "comp")
+    hotter, _ = synthetic_turbine(days=40, seed=8, rise_k=36.0)  # 20 % more rise at rated power, same tau
+    held = ref.refit_load(hotter, "comp")
+    assert held.tau_h == ref.tau_h
+    np.testing.assert_allclose(held.theta[:3], ref.theta[:3])  # intercept and cooling-side weights held
+    assert held.params()["rise_rated_K"] - ref.params()["rise_rated_K"] == pytest.approx(6.0, abs=0.6)
+    assert ref.params()["rise_rated_K"] == pytest.approx(30.0, rel=0.05)  # the reference itself is unchanged

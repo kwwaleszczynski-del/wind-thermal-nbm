@@ -2,7 +2,13 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from wind_thermal_nbm.care_score import care_score, criticality, earliness_weights, evaluate_event, fbeta
+from wind_thermal_nbm.care_score import (
+    care_score,
+    criticality,
+    earliness_weights,
+    evaluate_event,
+    fbeta,
+)
 
 
 def test_fbeta_weights_precision_over_recall():

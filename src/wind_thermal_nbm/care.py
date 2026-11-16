@@ -228,7 +228,7 @@ def fetch(raw_dir: Path) -> Path:
             h.update(chunk)
     algo, _, digest = info["checksum"].partition(":")
     if algo == "md5" and h.hexdigest() != digest:
-        raise IOError(f"{dest.name}: MD5 mismatch, delete the file and fetch again")
+        raise OSError(f"{dest.name}: MD5 mismatch, delete the file and fetch again")
     return dest
 
 
@@ -291,3 +291,69 @@ def summarise(scores_dir: Path, quantiles=(SCORE_QUANTILE,)) -> tuple[pd.DataFra
         for farm, gf in g.groupby("farm"):
             summary.append({"quantile": q, "method": m, "farm": farm, **care_score(gf)})
     return events, pd.DataFrame(summary)
+
+
+PLACEBO_DRAWS = 200
+
+
+def detected_after_shifts(flag: np.ndarray, normal: np.ndarray, in_window: np.ndarray,
+                          shifts: np.ndarray) -> np.ndarray:
+    """Whether the event would count as detected with the point predictions shifted circularly by each of
+    ``shifts`` steps (the flag rate and its clustering stay, the alignment with the event window goes)."""
+    from .care_score import CRITICALITY_THRESHOLD, criticality
+
+    idx = np.flatnonzero(in_window)
+    stop = idx[-1] + 1 if len(idx) else len(flag)
+    return np.array([criticality(np.roll(flag, k)[:stop], normal[:stop]).max() >= CRITICALITY_THRESHOLD
+                     for k in shifts])
+
+
+def placebo(scores_dir: Path, quantile: float = SCORE_QUANTILE, draws: int = PLACEBO_DRAWS,
+            seed: int = 0) -> pd.DataFrame:
+    """Observed detections against a circular-shift placebo, per method.
+
+    Each draw shifts every dataset's prediction-section flags by an independent random offset; the placebo
+    count is the number of anomaly (or normal) datasets detected in that draw. Also: a one-sided Fisher test of
+    detected anomaly datasets against flagged normal ones, the flag rate inside and outside the anomaly windows
+    (same datasets, normal-status points), the share of prediction points without a score (no producing data;
+    they count as predicted normal) and the accuracy on normal datasets counting scored points only."""
+    from scipy.stats import fisher_exact
+
+    meta = pd.read_csv(scores_dir / "meta.csv")
+    rows = []
+    for method, mm in meta.groupby("method"):
+        rng = np.random.default_rng(seed)
+        obs, plac, inside, outside, unscored, acc_scored = [], [], [], [], [], []
+        for r in mm.itertuples(index=False):
+            s = pd.read_parquet(scores_dir / f"{r.farm}_{r.event_id}_{r.method}.parquet")
+            threshold = float(np.nanquantile(s.loc[s["cal"], "score"], quantile))
+            p = s[s["pred"]]
+            flag = (p["score"] > threshold).to_numpy()
+            normal = p["status_normal"].to_numpy()
+            win = p["in_window"].to_numpy()
+            shifts = rng.integers(1, len(flag), draws)
+            obs.append(bool(detected_after_shifts(flag, normal, win, np.array([0]))[0]))
+            plac.append(detected_after_shifts(flag, normal, win, shifts))
+            unscored.append(float(p["score"].isna().mean()))
+            if r.label == "anomaly":
+                inside.append(flag[win & normal].mean() if (win & normal).any() else np.nan)
+                outside.append(flag[~win & normal].mean() if (~win & normal).any() else np.nan)
+            else:
+                scored = normal & p["score"].notna().to_numpy()
+                acc_scored.append(1.0 - flag[scored].mean() if scored.any() else np.nan)
+        anomaly = (mm["label"] == "anomaly").to_numpy()
+        obs, plac = np.array(obs), np.array(plac)
+        tot_a, tot_n = plac[anomaly].sum(axis=0), plac[~anomaly].sum(axis=0)
+        det_a, det_n = int(obs[anomaly].sum()), int(obs[~anomaly].sum())
+        table = [[det_a, int(anomaly.sum()) - det_a], [det_n, int((~anomaly).sum()) - det_n]]
+        rows.append({"quantile": quantile, "method": method, "anomaly_detected": det_a,
+                     "placebo_mean": float(tot_a.mean()), "placebo_p05": float(np.percentile(tot_a, 5)),
+                     "placebo_p95": float(np.percentile(tot_a, 95)),
+                     "placebo_share_at_least_observed": float(np.mean(tot_a >= det_a)),
+                     "normal_flagged": det_n, "normal_placebo_mean": float(tot_n.mean()),
+                     "fisher_p_one_sided": float(fisher_exact(table, alternative="greater")[1]),
+                     "flag_rate_in_window": float(np.nanmean(inside)),
+                     "flag_rate_outside_window": float(np.nanmean(outside)),
+                     "unscored_share": float(np.mean(unscored)),
+                     "accuracy_scored_points": float(np.nanmean(acc_scored))})
+    return pd.DataFrame(rows)

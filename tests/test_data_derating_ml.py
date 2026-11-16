@@ -3,8 +3,8 @@ import zipfile
 import numpy as np
 import pandas as pd
 import pytest
-
 from conftest import synthetic_turbine
+
 from wind_thermal_nbm import data, derating
 from wind_thermal_nbm.ml import GBMModel
 from wind_thermal_nbm.prep import clean, operating, turbine_frame

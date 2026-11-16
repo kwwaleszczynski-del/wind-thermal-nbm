@@ -79,6 +79,7 @@ def evaluate(raw_dir: Path, data_dir: Path, results_dir: Path) -> None:
     fa_sum.to_csv(results_dir / "false_alarms.csv", index=False)
     summary = validation.summarise_injections(inj)
     summary.to_csv(results_dir / "injection_summary.csv", index=False)
+    validation.bootstrap_detection(inj).to_csv(results_dir / "injection_ci.csv", index=False)
     by_comp = (inj[(inj.valid_days >= 30) & (inj.chart == "cusum")]
                .groupby(["baseline", "fault", "method", "component"]).detected.mean().mul(100).unstack("method"))
     by_comp.round(1).to_csv(results_dir / "injection_by_component.csv")
